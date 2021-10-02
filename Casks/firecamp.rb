@@ -1,12 +1,23 @@
-cask 'firecamp' do
-  version '1.2.12'
-  sha256 '5aa55cbc65093e007a1adadb573429a5b82c015be236b28e2eba9310a6543a27'
+cask "firecamp" do
+  version "2.2.2"
+  sha256 "a4af2f9b212adad34fccdc36373b3bfbb01f537be992d3b833a7176264cc8e49"
 
-  # firecamp.ams3.digitaloceanspaces.com/ was verified as official when first introduced to the cask
-  url "https://firecamp.ams3.digitaloceanspaces.com/versions/mac/Firecamp-#{version}.dmg"
-  appcast 'https://firecamp.io/docs/installation'
-  name 'Firecamp'
-  homepage 'https://firecamp.io/'
+  url "https://firecamp.ams3.digitaloceanspaces.com/versions/mac/Firecamp-#{version}.dmg",
+      verified: "firecamp.ams3.digitaloceanspaces.com/"
+  name "Firecamp"
+  desc "Multi-protocol API development platform"
+  homepage "https://firecamp.io/"
 
-  app 'Firecamp.app'
+  livecheck do
+    url "https://firecamp.netlify.app/.netlify/functions/download?pt=mac"
+    strategy :header_match
+  end
+
+  app "Firecamp.app"
+
+  zap trash: [
+    "~/Library/Application Support/firecamp",
+    "~/Library/Preferences/com.firecamp.app.plist",
+    "~/.firecamp",
+  ]
 end

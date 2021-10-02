@@ -1,18 +1,24 @@
-cask 'nuclino' do
-  version :latest
-  sha256 :no_check
+cask "nuclino" do
+  version "1.5.0"
+  sha256 "3558cdd638c3bf3a2cf5130267f092960389050ea5336e133d8e66154a4ba1c3"
 
-  # s3.eu-central-1.amazonaws.com/repository.nuclino.com/ was verified as official when first introduced to the cask
-  url 'https://s3.eu-central-1.amazonaws.com/repository.nuclino.com/downloads/Nuclino.dmg'
-  name 'Nuclino'
-  homepage 'https://www.nuclino.com/'
+  url "https://s3.eu-central-1.amazonaws.com/repository.nuclino.com/mac/Nuclino-#{version}.dmg",
+      verified: "s3.eu-central-1.amazonaws.com/repository.nuclino.com/"
+  name "Nuclino"
+  desc "Collaborative wiki and knowledgebase"
+  homepage "https://www.nuclino.com/"
 
-  app 'Nuclino.app'
+  livecheck do
+    url "https://s3-eu-central-1.amazonaws.com/repository.nuclino.com/mac/stable-mac.yml"
+    strategy :electron_builder
+  end
+
+  app "Nuclino.app"
 
   zap trash: [
-               '~/Library/Application Support/Nuclino',
-               '~/Library/Caches/nuclino-desktop-updater',
-               '~/Library/Logs/Nuclino',
-               '~/Library/Preferences/com.nuclino.desktop.plist',
-             ]
+    "~/Library/Application Support/Nuclino",
+    "~/Library/Caches/nuclino-desktop-updater",
+    "~/Library/Logs/Nuclino",
+    "~/Library/Preferences/com.nuclino.desktop.plist",
+  ]
 end

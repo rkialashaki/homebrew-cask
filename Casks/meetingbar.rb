@@ -1,18 +1,18 @@
-cask 'meetingbar' do
-  version '1.2'
-  sha256 'b5bc97ec8b3ed7a61a265a6964e8c2179ea4dd6dfa2569c3f56a0f81cbdf17c2'
+cask "meetingbar" do
+  version "3.8.0"
+  sha256 "706e8a19977d2f571ab6ce5844e37f6ea99286fc37eec9170f42ec71a830b171"
 
   url "https://github.com/leits/MeetingBar/releases/download/v#{version}/MeetingBar.dmg"
-  appcast 'https://github.com/leits/MeetingBar/releases.atom'
-  name 'MeetingBar'
-  homepage 'https://github.com/leits/MeetingBar'
+  name "MeetingBar"
+  desc "Shows the next meeting in the menu bar"
+  homepage "https://github.com/leits/MeetingBar"
 
-  depends_on macos: '>= :catalina'
+  depends_on macos: ">= :catalina"
 
-  app 'MeetingBar.app'
+  app "MeetingBar.app"
 
   zap trash: [
-               '~/Library/Application Scripts/leits.MeetingBar',
-               '~/Library/Containers/leits.MeetingBar',
-             ]
+    "~/Library/Application Scripts/leits.MeetingBar",
+    "~/Library/Containers/leits.MeetingBar",
+  ]
 end

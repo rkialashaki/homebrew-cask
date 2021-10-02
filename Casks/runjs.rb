@@ -1,12 +1,27 @@
-cask 'runjs' do
-  version '1.9.0'
-  sha256 'd81e6af3048dbdf1130cfd0fc7b28c445b3c05f533c199f2243cb7ead664fc25'
+cask "runjs" do
+  version "2.1.3"
+  sha256 "2b3760cc978c3e4dc0cc0128b9d2381270dbb1c86dd197ee357a726567e52d7a"
 
-  # github.com/lukehaas/runjs/ was verified as official when first introduced to the cask
-  url "https://github.com/lukehaas/runjs/releases/download/v#{version}/RunJS-#{version}.dmg"
-  appcast 'https://github.com/lukehaas/runjs/releases.atom'
-  name 'RunJS'
-  homepage 'https://projects.lukehaas.me/runjs/'
+  url "https://github.com/lukehaas/RunJS/releases/download/v#{version}/RunJS-#{version}-universal.dmg",
+      verified: "github.com/lukehaas/RunJS/"
+  name "RunJS"
+  desc "JavaScript playground that auto-evaluates as code is typed"
+  homepage "https://runjs.app/"
 
-  app 'RunJS.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  auto_updates true
+  depends_on macos: ">= :yosemite"
+
+  app "RunJS.app"
+
+  zap trash: [
+    "~/Library/Application Support/runjs",
+    "~/Library/Logs/RunJS",
+    "~/Library/Preferences/me.lukehaas.runjs.plist",
+    "~/Library/Saved Application State/me.lukehaas.runjs.savedState",
+  ]
 end

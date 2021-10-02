@@ -1,19 +1,38 @@
-cask 'linear-linear' do
-  version '1.2.8'
-  sha256 'bf4cfa1c578eb3264138e41f35f6f7d1ceeeb821c4e406d4fa2bef148428c1de'
+cask "linear-linear" do
+  version "1.5.1"
+  sha256 :no_check
 
-  url "https://download.linear.app/darwin/Linear-darwin-x64-#{version}.zip"
-  appcast 'https://api.linear.app/update/darwin/0.0.0'
-  name 'Linear'
-  homepage 'https://linear.app/'
+  if Hardware::CPU.intel?
+    url "https://desktop.linear.app/mac/dmg/x64"
 
-  app 'Linear.app'
+    livecheck do
+      url "https://desktop.linear.app/mac/dmg/x64"
+      strategy :header_match
+      regex(/Linear\s*(\d+(?:\.\d+)*?)[._-]x64.dmg/)
+    end
+  else
+    url "https://desktop.linear.app/mac/dmg/arm64"
+
+    livecheck do
+      url "https://desktop.linear.app/mac/dmg/arm64"
+      strategy :header_match
+      regex(/Linear\s*(\d+(?:\.\d+)*?)[._-]arm64.dmg/)
+    end
+  end
+
+  name "Linear"
+  desc "App to manage software development and track bugs"
+  homepage "https://linear.app/"
+
+  auto_updates true
+
+  app "Linear.app"
 
   zap trash: [
-               '~/Library/Application Support/Linear',
-               '~/Library/Caches/com.linear',
-               '~/Library/Caches/com.linear.ShipIt',
-               '~/Library/Preferences/com.linear.plist',
-               '~/Library/Saved Application State/com.linear.savedState',
-             ]
+    "~/Library/Application Support/Linear",
+    "~/Library/Caches/com.linear",
+    "~/Library/Caches/com.linear.ShipIt",
+    "~/Library/Preferences/com.linear.plist",
+    "~/Library/Saved Application State/com.linear.savedState",
+  ]
 end

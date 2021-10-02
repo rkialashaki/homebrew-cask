@@ -1,12 +1,20 @@
-cask 'orka' do
-  version '1.3.0,c710094'
-  sha256 '4178c1f16d82e9b93a825419c6228b7d8237b609082537732acef387ee5914f5'
+cask "orka" do
+  version "1.6.0"
+  sha256 "accc2136bcd68c8b83463d9e4a77d755479a3e90b111452d8717b87160343708"
 
-  # cli-builds-public.s3-eu-west-1.amazonaws.com/official/ was verified as official when first introduced to the cask
-  url "https://cli-builds-public.s3-eu-west-1.amazonaws.com/official/#{version.before_comma}/#{version.after_comma}/macos/orka.zip"
-  appcast 'https://orkadocs.macstadium.com/docs/downloads'
-  name 'Orka CLI'
-  homepage 'https://orkadocs.macstadium.com/docs'
+  url "https://cli-builds-public.s3-eu-west-1.amazonaws.com/official/#{version}/macos/orka.pkg",
+      verified: "cli-builds-public.s3-eu-west-1.amazonaws.com/official/"
+  name "Orka CLI"
+  desc "Orchestration with Kubernetes on Apple"
+  homepage "https://orkadocs.macstadium.com/docs"
 
-  binary 'orka'
+  livecheck do
+    url "https://orkadocs.macstadium.com/docs/downloads"
+    strategy :page_match
+    regex(%r{href=.*?/official/(\d+(?:\.\d+)*)/macos/orka\.pkg}i)
+  end
+
+  pkg "orka.pkg"
+
+  uninstall pkgutil: "com.macstadium.orka.pkg"
 end

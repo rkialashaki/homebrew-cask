@@ -1,11 +1,17 @@
-cask 'spamsieve' do
-  version '2.9.39'
-  sha256 'a21ebca717449924d29eb20c33ccab96e662d4d77be903b9f8e0ea0f0d4fd7bb'
+cask "spamsieve" do
+  version "2.9.45"
+  sha256 "d84de75302be7f29b3b83df53bc5226007d63c6ae0c1a5139ea182d4f1798774"
 
   url "https://c-command.com/downloads/SpamSieve-#{version}.dmg"
-  appcast 'https://c-command.com/spamsieve/'
-  name 'SpamSieve'
-  homepage 'https://c-command.com/spamsieve/'
+  name "SpamSieve"
+  desc "Spam filtering extension for e-mail clients"
+  homepage "https://c-command.com/spamsieve/"
 
-  app 'SpamSieve.app'
+  livecheck do
+    url :homepage
+    strategy :page_match
+    regex(%r{href=.*?/SpamSieve-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "SpamSieve.app"
 end

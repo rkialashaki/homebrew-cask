@@ -1,23 +1,23 @@
-cask 'caprine' do
-  version '2.48.0'
-  sha256 '2f346303137816a57e25b1b84a41f675487a24926c24f5f09b45e2144873d54a'
+cask "caprine" do
+  version "2.54.1"
+  sha256 "f9f90b7301d7eb7218b6edc1797b2958371e6b82740b9e677c7621199aea74d4"
 
   url "https://github.com/sindresorhus/caprine/releases/download/v#{version}/Caprine-#{version}.dmg"
-  appcast 'https://github.com/sindresorhus/caprine/releases.atom'
-  name 'Caprine'
-  homepage 'https://github.com/sindresorhus/caprine'
+  name "Caprine"
+  desc "Elegant Facebook Messenger desktop app"
+  homepage "https://github.com/sindresorhus/caprine"
 
   auto_updates true
 
-  app 'Caprine.app'
+  app "Caprine.app"
 
   zap trash: [
-               '~/Library/Application Support/Caprine',
-               '~/Library/Logs/Caprine',
-               '~/Library/Caches/com.sindresorhus.caprine',
-               '~/Library/Caches/com.sindresorhus.caprine.ShipIt',
-               '~/Library/Preferences/com.sindresorhus.caprine.helper.plist',
-               '~/Library/Preferences/com.sindresorhus.caprine.plist',
-               '~/Library/Saved Application State/com.sindresorhus.caprine.savedState',
-             ]
+    "~/Library/Application Support/Caprine",
+    "~/Library/Logs/Caprine",
+    "~/Library/Caches/com.sindresorhus.caprine",
+    "~/Library/Caches/com.sindresorhus.caprine.ShipIt",
+    "~/Library/Preferences/com.sindresorhus.caprine.helper.plist",
+    "~/Library/Preferences/com.sindresorhus.caprine.plist",
+    "~/Library/Saved Application State/com.sindresorhus.caprine.savedState",
+  ]
 end

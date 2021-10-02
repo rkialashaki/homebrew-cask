@@ -1,12 +1,18 @@
-cask 'teamwire' do
-  version '2.2.1'
-  sha256 'ccb12fe37e513b9be4345726f5a29b8881d2c64affbac7a54b1f084fa7621441'
+cask "teamwire" do
+  version "2.7.1"
+  sha256 "477b20cf53ff56b7c45e1fd161f1fbc9cca1c9c36f010dec191ce48dbadd1619"
 
   url "https://desktop.teamwire.eu/dist/#{version}/Teamwire-macos64_#{version}.dmg"
-  name 'Teamwire'
-  homepage 'https://www.teamwire.eu/'
+  name "Teamwire"
+  desc "Secure business messenger"
+  homepage "https://www.teamwire.eu/"
 
-  app 'Teamwire.app'
+  livecheck do
+    url "https://desktop.teamwire.eu/download.php?platform=darwin&lang=de"
+    strategy :header_match
+  end
 
-  zap trash: '~/Library/Application Support/Teamwire/'
+  app "Teamwire.app"
+
+  zap trash: "~/Library/Application Support/Teamwire/"
 end

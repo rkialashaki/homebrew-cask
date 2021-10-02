@@ -1,18 +1,23 @@
-cask 'path-finder' do
-  version '9.3.5'
-  sha256 'bfd62b2bc0f0bd247828125c881030773e1e9d869a07ab19f0344d2b34df4ab0'
+cask "path-finder" do
+  version "10.2,2098"
+  sha256 "d29ac285f7b5712146cc3ce327534e9e67b2a93fec460190dd833a6d5b99ab8a"
 
   url "https://get.cocoatech.com/PF#{version.major}.dmg"
-  appcast 'https://get.cocoatech.com/releasecast.xml'
-  name 'Path Finder'
-  homepage 'https://cocoatech.com/'
+  name "Path Finder"
+  desc "File manager"
+  homepage "https://cocoatech.com/"
+
+  livecheck do
+    url "https://get.cocoatech.com/releasecast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'Path Finder.app'
+  app "Path Finder.app"
 
   zap trash: [
-               '~/Library/Preferences/com.cocoatech.PathFinder.plist',
-               '~/Library/Application Support/Path Finder',
-             ]
+    "~/Library/Application Support/Path Finder",
+    "~/Library/Preferences/com.cocoatech.PathFinder.plist",
+  ]
 end

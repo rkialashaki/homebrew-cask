@@ -1,14 +1,30 @@
-cask 'ledger-live' do
-  version '2.6.0'
-  sha256 '49c7da9028ddfdcdb3564f0fd8c1e78b09fec37dc0b5f8693a1337f75917a273'
+cask "ledger-live" do
+  version "2.33.1"
+  sha256 "c7eddd9178d41da63ac2f1657895476c239a4805eaf7e5e8a741e09418d8b9a6"
 
-  # github.com/LedgerHQ/ledger-live-desktop/ was verified as official when first introduced to the cask
-  url "https://github.com/LedgerHQ/ledger-live-desktop/releases/download/v#{version}/ledger-live-desktop-#{version}-mac.dmg"
-  appcast 'https://github.com/LedgerHQ/ledger-live-desktop/releases.atom'
-  name 'Ledger Live'
-  homepage 'https://www.ledgerwallet.com/live'
+  url "https://github.com/LedgerHQ/ledger-live-desktop/releases/download/v#{version}/ledger-live-desktop-#{version}-mac.dmg",
+      verified: "github.com/LedgerHQ/ledger-live-desktop/"
+  name "Ledger Live"
+  desc "Wallet desktop application to maintain multiple cryptocurrencies"
+  homepage "https://www.ledgerwallet.com/live"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   auto_updates true
 
-  app 'Ledger Live.app'
+  app "Ledger Live.app"
+
+  uninstall quit: [
+    "com.ledger.live",
+    "com.ledger.live.helper",
+  ]
+
+  zap trash: [
+    "~/Library/Application Support/Ledger Live",
+    "~/Library/Preferences/com.ledger.live.plist",
+    "~/Library/Saved Application State/com.ledger.live.savedState",
+  ]
 end

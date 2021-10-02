@@ -1,13 +1,24 @@
-cask 'framer' do
-  version '50437,1591893511'
-  sha256 '1c6ea657ff534cbef79befa03b756309b34e229c0ce49790042e2850671aa00b'
+cask "framer" do
+  version "2021.33.0"
+  sha256 :no_check
 
-  url "https://dl.framer.com/com.framer.desktop/#{version.before_comma}/#{version.after_comma}/FramerDesktop-#{version.before_comma}.zip"
-  appcast 'https://updates.framer.com/sparkle/com.framer.desktop'
-  name 'Framer'
-  homepage 'https://www.framer.com/desktop/'
+  if Hardware::CPU.intel?
+    url "https://updates.framer.com/electron/darwin/x64/Framer.zip"
+  else
+    url "https://updates.framer.com/electron/darwin/arm64/Framer.zip"
+  end
 
-  depends_on macos: '>= :mojave'
+  name "Framer"
+  desc "Tool that helps teams design every part of the product experience"
+  homepage "https://www.framer.com/desktop/"
 
-  app 'Framer.app'
+  livecheck do
+    url :url
+    strategy :extract_plist
+  end
+
+  auto_updates true
+  depends_on macos: ">= :mojave"
+
+  app "Framer.app"
 end

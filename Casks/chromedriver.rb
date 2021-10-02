@@ -1,14 +1,28 @@
-cask 'chromedriver' do
-  version '83.0.4103.39'
-  sha256 'd902d4b3e77e466102ebfe25e13a25798b473655461fa3e928268faf6fc7fef6'
+cask "chromedriver" do
+  version "94.0.4606.61"
 
-  # chromedriver.storage.googleapis.com/ was verified as official when first introduced to the cask
-  url "https://chromedriver.storage.googleapis.com/#{version}/chromedriver_mac64.zip"
-  appcast 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE'
-  name 'ChromeDriver'
-  homepage 'https://sites.google.com/a/chromium.org/chromedriver/home'
+  if Hardware::CPU.intel?
+    sha256 "3b91860aa4d71330e68cac11da586ac39adcead361ae95b3fa856fd3da5383ac"
 
-  conflicts_with cask: 'chromedriver-beta'
+    url "https://chromedriver.storage.googleapis.com/#{version}/chromedriver_mac64.zip",
+        verified: "chromedriver.storage.googleapis.com/"
+  else
+    sha256 "f32d6de39c14d531268ab5882c5144253f3bdb84fc210fd08c435f13bd5a7dce"
 
-  binary 'chromedriver'
+    url "https://chromedriver.storage.googleapis.com/#{version}/chromedriver_mac64_m1.zip",
+        verified: "chromedriver.storage.googleapis.com/"
+  end
+
+  name "ChromeDriver"
+  desc "Automated testing of webapps for Google Chrome"
+  homepage "https://sites.google.com/chromium.org/driver/"
+
+  livecheck do
+    url "https://chromedriver.storage.googleapis.com/LATEST_RELEASE"
+    regex(/v?(\d+(?:\.\d+)+)/i)
+  end
+
+  conflicts_with cask: "homebrew/cask-versions/chromedriver-beta"
+
+  binary "chromedriver"
 end

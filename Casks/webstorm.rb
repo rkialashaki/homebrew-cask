@@ -1,26 +1,50 @@
-cask 'webstorm' do
-  version '2020.1.2,201.7846.79'
-  sha256 '2b98709cbea9d3bcbf256e44242b1822fa36570dd6fe6fd2633486e7295a8754'
+cask "webstorm" do
+  version "2021.2.2,212.5284.41"
 
-  url "https://download.jetbrains.com/webstorm/WebStorm-#{version.before_comma}.dmg"
-  appcast 'https://data.services.jetbrains.com/products/releases?code=WS&latest=true&type=release'
-  name 'WebStorm'
-  homepage 'https://www.jetbrains.com/webstorm/'
+  if Hardware::CPU.intel?
+    sha256 "98abd2e23f69b195fdb4c8c4a88cceca46eaf54cc3d25592f442dab310acda49"
+
+    url "https://download.jetbrains.com/webstorm/WebStorm-#{version.before_comma}.dmg"
+  else
+    sha256 "ba5f73daa0e37b61828ac78c13f05283d8050ae1da6ff2f6615428b3b6dd11af"
+
+    url "https://download.jetbrains.com/webstorm/WebStorm-#{version.before_comma}-aarch64.dmg"
+  end
+
+  name "WebStorm"
+  desc "JavaScript IDE"
+  homepage "https://www.jetbrains.com/webstorm/"
+
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=WS&latest=true&type=release"
+    strategy :page_match do |page|
+      JSON.parse(page)["WS"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
+    end
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  app 'WebStorm.app'
+  app "WebStorm.app"
 
   uninstall_postflight do
-    ENV['PATH'].split(File::PATH_SEPARATOR).map { |path| File.join(path, 'wstorm') }.each { |path| File.delete(path) if File.exist?(path) && File.readlines(path).grep(%r{# see com.intellij.idea.SocketLock for the server side of this interface}).any? }
+    ENV["PATH"].split(File::PATH_SEPARATOR).map { |path| File.join(path, "wstorm") }.each do |path|
+      if File.exist?(path) &&
+         File.readlines(path).grep(/# see com.intellij.idea.SocketLock for the server side of this interface/).any?
+        File.delete(path)
+      end
+    end
   end
 
   zap trash: [
-               "~/Library/Application Support/WebStorm#{version.major_minor}",
-               "~/Library/Caches/WebStorm#{version.major_minor}",
-               "~/Library/Logs/WebStorm#{version.major_minor}",
-               "~/Library/Preferences/WebStorm#{version.major_minor}",
-               '~/Library/Preferences/jetbrains.webstorm.aaac0500.plist',
-               '~/Library/Saved Application State/com.jetbrains.WebStorm.savedState',
-             ]
+    "~/Library/Preferences/com.jetbrains.WebStorm.plist",
+    "~/Library/Preferences/jetbrains.webstorm.*.plist",
+    "~/Library/Preferences/WebStorm#{version.major_minor}",
+    "~/Library/Application Support/JetBrains/WebStorm#{version.major_minor}",
+    "~/Library/Caches/JetBrains/WebStorm#{version.major_minor}",
+    "~/Library/Logs/JetBrains/WebStorm#{version.major_minor}",
+    "~/Library/Saved Application State/com.jetbrains.WebStorm.savedState",
+  ]
 end

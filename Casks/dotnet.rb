@@ -1,24 +1,36 @@
-cask 'dotnet' do
-  version '3.1.5,e6494006-4940-48ed-9c28-a91fd4cfafba:fd10e3e409d55ff15f43611db6f9ead0'
-  sha256 '1eaf839c614b189737e327644c170c2ca9a97809a4a8ed5667712c11f9a8a3d1'
+cask "dotnet" do
+  version "5.0.10,0a1577a6-a7f1-4da0-ae64-9003ff8badb5:3b3a9291a0bdcb5591afab9e842272db"
+  sha256 "20e0ecf502863f1b932ce4d4ac2e685e126d058dd5e57b6a5235c1dc3f760be1"
 
   url "https://download.visualstudio.microsoft.com/download/pr/#{version.after_comma.before_colon}/#{version.after_colon}/dotnet-runtime-#{version.before_comma}-osx-x64.pkg"
-  appcast 'https://www.microsoft.com/net/download/macos'
-  name '.Net Core Runtime'
-  homepage 'https://www.microsoft.com/net/core#macos'
+  name ".Net Runtime"
+  desc "Developer platform"
+  homepage "https://www.microsoft.com/net/core#macos"
+
+  # This identifies releases with the same major/minor version as the current
+  # cask version. New major/minor releases occur annually in November and the
+  # check will automatically update its behavior when the cask is updated.
+  livecheck do
+    url "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/#{version.major_minor}/releases.json"
+    strategy :page_match do |page|
+      page.scan(%r{/download/pr/([^/]+)/([^/]+)/dotnet-runtime-v?(\d+(?:\.\d+)+)-osx-x64\.pkg}i).map do |match|
+        "#{match[2]},#{match[0]}:#{match[1]}"
+      end
+    end
+  end
 
   conflicts_with cask: [
-                         'dotnet-sdk',
-                         'dotnet-preview',
-                         'dotnet-sdk-preview',
-                       ]
-  depends_on macos: '>= :sierra'
+    "dotnet-sdk",
+    "homebrew/cask-versions/dotnet-preview",
+    "homebrew/cask-versions/dotnet-sdk-preview",
+  ]
+  depends_on macos: ">= :high_sierra"
 
   pkg "dotnet-runtime-#{version.before_comma}-osx-x64.pkg"
-  binary '/usr/local/share/dotnet/dotnet'
+  binary "/usr/local/share/dotnet/dotnet"
 
-  uninstall pkgutil: 'com.microsoft.dotnet.*',
-            delete:  '/etc/paths.d/dotnet'
+  uninstall pkgutil: "com.microsoft.dotnet.*",
+            delete:  "/etc/paths.d/dotnet"
 
-  zap trash: '~/.nuget'
+  zap trash: "~/.nuget"
 end

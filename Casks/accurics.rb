@@ -1,14 +1,19 @@
-cask 'accurics' do
-  version '0.0.4'
-  sha256 '74f0f00ac9f8f4ad47f5dcb81eaabad1587eedf458d41ec5d91d54490376b0ae'
+cask "accurics" do
+  version "1.0.24"
+  sha256 "e74ccff8eef37acd253c268edfc36ef3862d8de9351222dfbdbfd12c5d3f4c34"
 
-  url "http://downloads.accurics.com/cli/#{version}/accurics-cli.dmg"
-  appcast "http://downloads.accurics.com/cli/#{version}/accurics-cli.yml",
-          must_contain: version
-  name 'Accurics CLI'
-  homepage 'https://www.accurics.com/'
+  url "https://downloads.accurics.com/cli/#{version}/accurics-cli.dmg",
+      user_agent: :fake
+  name "Accurics CLI"
+  desc "Security and compliance for Infrastructure as Code"
+  homepage "https://www.accurics.com/"
 
-  binary 'accurics'
+  livecheck do
+    url "https://downloads.accurics.com/cli/latest/accurics-cli.yml"
+    strategy :electron_builder
+  end
 
-  zap trash: '~/.accurics/'
+  binary "accurics"
+
+  zap trash: "~/.accurics/"
 end

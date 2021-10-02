@@ -1,17 +1,24 @@
-cask 'hey' do
-  version '1.0.6'
-  sha256 'd8ac5db02bf311bf1ade3a5e69a9bc587bbb56df0d2792be029071a1571c9c13'
+cask "hey" do
+  version "1.2.0"
+  sha256 "6e507fd121b19c8098cdca8ba9b0d4423b5a9bb828f9a0af96577edd44470f4e"
 
-  # hey-desktop.s3.amazonaws.com was verified as official when first introduced to the cask
-  url "https://hey-desktop.s3.amazonaws.com/HEY-#{version}.dmg"
-  appcast 'https://hey-desktop.s3.amazonaws.com/latest-mac.yml'
-  name 'Hey'
-  homepage 'https://hey.com/'
+  url "https://hey-desktop.s3.amazonaws.com/HEY-#{version}.dmg",
+      verified: "hey-desktop.s3.amazonaws.com/"
+  name "HEY"
+  desc "Access the HEY email service"
+  homepage "https://hey.com/"
 
-  app 'Hey.app'
+  livecheck do
+    url "https://hey-desktop.s3.amazonaws.com/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  auto_updates true
+
+  app "HEY.app"
 
   zap trash: [
-               '~/Library/Application Support/HEY',
-               '~/Library/Preferences/com.hey.app.desktop.plist',
-             ]
+    "~/Library/Application Support/HEY",
+    "~/Library/Preferences/com.hey.app.desktop.plist",
+  ]
 end

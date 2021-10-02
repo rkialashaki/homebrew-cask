@@ -1,26 +1,32 @@
-cask 'cardhop' do
-  version '1.3.4'
-  sha256 'bb79c79fe54ade54a100cbf79b4fa2ba24996d66d848a2bba211ec9be53080e3'
+cask "cardhop" do
+  version "2.0.5,1050"
+  sha256 "ef90f03032c7e0fdb8afd6172ba33caa7e28849d23d60fc740eb154af1f0d8ba"
 
-  url "https://cdn.flexibits.com/Cardhop_#{version}.zip"
-  appcast 'https://flexibits.com/cardhop/appcast.php'
-  name 'Cardhop'
-  homepage 'https://flexibits.com/cardhop'
+  url "https://cdn.flexibits.com/Cardhop_#{version.before_comma}.zip"
+  name "Cardhop"
+  desc "Contacts manager"
+  homepage "https://flexibits.com/cardhop"
+
+  livecheck do
+    url "https://flexibits.com/cardhop/appcast.php"
+    strategy :sparkle
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  app 'Cardhop.app'
+  app "Cardhop.app"
 
-  uninstall launchctl: 'com.flexibits.cardhop.mac.launcher',
-            quit:      'com.flexibits.cardhop.mac'
+  uninstall launchctl: "com.flexibits.cardhop.mac.launcher",
+            quit:      "com.flexibits.cardhop.mac"
 
   zap trash: [
-               '~/Library/Preferences/com.flexibits.cardhop.mac.plist',
-               '~/Library/Application Scripts/com.flexibits.cardhop.mac',
-               '~/Library/Application Scripts/com.flexibits.cardhop.mac.launcher',
-               '~/Library/Application Scripts/com.flexibits.cardhop.mac.BluetoothDialer',
-               '~/Library/Containers/com.flexibits.cardhop.mac',
-               '~/Library/Containers/com.flexibits.cardhop.mac.launcher',
-               '~/Library/Containers/com.flexibits.cardhop.mac.BluetoothDialer',
-             ]
+    "~/Library/Application Scripts/com.flexibits.cardhop.mac",
+    "~/Library/Application Scripts/com.flexibits.cardhop.mac.launcher",
+    "~/Library/Application Scripts/com.flexibits.cardhop.mac.BluetoothDialer",
+    "~/Library/Containers/com.flexibits.cardhop.mac",
+    "~/Library/Containers/com.flexibits.cardhop.mac.launcher",
+    "~/Library/Containers/com.flexibits.cardhop.mac.BluetoothDialer",
+    "~/Library/Preferences/com.flexibits.cardhop.mac.plist",
+  ]
 end

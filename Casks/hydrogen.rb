@@ -1,14 +1,16 @@
-cask 'hydrogen' do
-  version '0.9.7'
-  sha256 'f31d99cbb4e996a90ffc91de5002aaf8e62002ca900c169d4c387d69cadd4ce4'
+cask "hydrogen" do
+  version "1.1.0"
+  sha256 "5ef9dc9a3190de0c6524b6fa6bc1e3ef16aeb2a420fb98decc7689a87de2f1b2"
 
-  # downloads.sourceforge.net/hydrogen/ was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/hydrogen/Hydrogen-#{version}.dmg"
-  appcast 'https://sourceforge.net/projects/hydrogen/rss?path=/Hydrogen'
-  name 'Hydrogen'
-  homepage 'http://www.hydrogen-music.org/'
+  url "https://github.com/hydrogen-music/hydrogen/releases/download/#{version}/Hydrogen-#{version}.dmg",
+      verified: "github.com/hydrogen-music/hydrogen/"
+  name "Hydrogen"
+  desc "Drum machine and sequencer"
+  homepage "http://www.hydrogen-music.org/"
 
-  depends_on macos: '>= :sierra'
+  depends_on macos: ">= :mojave"
 
-  app 'hydrogen.app'
+  app "Hydrogen.app"
+
+  zap trash: "~/Library/Application Support/Hydrogen"
 end

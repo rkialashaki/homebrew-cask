@@ -1,20 +1,36 @@
-cask 'tinkerwell' do
-  version '2.7.0'
-  sha256 'ce6ef09d64c5b16a82d1f6f507a696e6c17bf7c47335438a73db44aaf3561e96'
+cask "tinkerwell" do
+  version "2.15.0"
 
-  # tinkerwell.fra1.digitaloceanspaces.com/ was verified as official when first introduced to the cask
-  url "https://tinkerwell.fra1.digitaloceanspaces.com/tinkerwell/Tinkerwell-#{version}.dmg"
-  appcast 'https://tinkerwell.fra1.digitaloceanspaces.com/tinkerwell/latest-mac.yml'
-  name 'Tinkerwell'
-  homepage 'https://tinkerwell.app/'
+  if Hardware::CPU.intel?
+    sha256 "1e003d4e68af69136f6786a43f6be5dd6ad871c296e68e3ec70af29785cfdcd0"
 
-  app 'Tinkerwell.app'
+    url "https://download.tinkerwell.app/tinkerwell/Tinkerwell-#{version}.dmg"
+  else
+    sha256 "b0d213f45120fb9358a23269e238f93580b7662ab4a19ffcd61462e490909f76"
+
+    url "https://download.tinkerwell.app/tinkerwell/Tinkerwell-#{version}-arm64.dmg"
+  end
+
+  name "Tinkerwell"
+  desc "Tinker tool for PHP and Laravel developers"
+  homepage "https://tinkerwell.app/"
+
+  livecheck do
+    url "https://download.tinkerwell.app/tinkerwell/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  auto_updates true
+
+  app "Tinkerwell.app"
 
   zap trash: [
-               '~/.config/tinkerwell',
-               '~/Library/Application Support/Tinkerwell',
-               '~/Library/Logs/Tinkerwell',
-               '~/Library/Preferences/de.beyondco.tinkerwell.plist',
-               '~/Library/Saved Application State/de.beyondco.tinkerwell.savedState',
-             ]
+    "~/.config/tinkerwell",
+    "~/Library/Application Support/Tinkerwell",
+    "~/Library/Caches/de.beyondco.tinkerwell",
+    "~/Library/Caches/de.beyondco.tinkerwell.ShipIt",
+    "~/Library/Logs/Tinkerwell",
+    "~/Library/Preferences/de.beyondco.tinkerwell.plist",
+    "~/Library/Saved Application State/de.beyondco.tinkerwell.savedState",
+  ]
 end

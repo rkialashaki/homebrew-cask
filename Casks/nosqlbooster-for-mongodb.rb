@@ -1,11 +1,17 @@
-cask 'nosqlbooster-for-mongodb' do
-  version '6.0.4'
-  sha256 '4375c1477f0036ac0f3e355eb525bc6875854e8291a38009a19a9c4c277ee6a0'
+cask "nosqlbooster-for-mongodb" do
+  version "6.2.17"
+  sha256 "e081b9899b93347bc441a40366efb58b12997e3134a8653497189cbec47a8448"
 
-  url "https://nosqlbooster.com/s3/download/releasesv#{version.major}/nosqlbooster4mongo-#{version}.dmg"
-  appcast 'https://nosqlbooster.com/downloads'
-  name 'NoSQLBooster for MongoDB'
-  homepage 'https://nosqlbooster.com/'
+  url "https://s3.mongobooster.com/download/releasesv#{version.major}/nosqlbooster4mongo-#{version}.dmg",
+      verified: "mongobooster.com/"
+  name "NoSQLBooster for MongoDB"
+  desc "GUI tool and IDE for MongoDB"
+  homepage "https://nosqlbooster.com/"
 
-  app 'NoSQLBooster for MongoDB.app'
+  livecheck do
+    url "https://nosqlbooster.com/downloads"
+    regex(/%22patch_ver%22(?:%20|\s)*%3A(?:%20|\s)*%22v?(\d+(?:\.\d+)+)%22/i)
+  end
+
+  app "NoSQLBooster for MongoDB.app"
 end

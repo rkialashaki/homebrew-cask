@@ -1,13 +1,21 @@
-cask 'kui' do
-  version '8.10.5'
-  sha256 '15562ff2b4c4252a2a494586b2321762db3d8b0e59b3f6431380952263110415'
+cask "kui" do
+  version "10.6.4"
 
-  # github.com/IBM/kui was verified as official when first introduced to the cask
-  url "https://github.com/IBM/kui/releases/download/v#{version}/Kui-darwin-x64.tar.bz2"
-  appcast 'https://github.com/IBM/kui/releases.atom'
-  name 'Kui'
-  homepage 'https://kui.tools/'
+  if Hardware::CPU.intel?
+    url "https://github.com/kubernetes-sigs/kui/releases/download/v#{version}/Kui-darwin-x64.tar.bz2"
+    sha256 "a72e52afbbcb68d1c8f37044a47bfef324a7c2e57b89b83569907adbd1d8ba53"
+    app "Kui-darwin-x64/Kui.app"
+  else
+    url "https://github.com/kubernetes-sigs/kui/releases/download/v#{version}/Kui-darwin-arm64.tar.bz2"
+    sha256 "383a3846be7ce279860491ce83c5eb255ffa2356c0f889e16e1109cdac597f72"
+    app "Kui-darwin-arm64/Kui.app"
+  end
 
-  app 'Kui-darwin-x64/Kui.app'
+  name "Kui"
+  desc "Hybrid command-line/UI development experience for cloud-native development"
+  homepage "https://github.com/kubernetes-sigs/kui"
+
   binary "#{appdir}/Kui.app/Contents/Resources/kubectl-kui"
+
+  zap trash: "~/Library/Application Support/Kui"
 end

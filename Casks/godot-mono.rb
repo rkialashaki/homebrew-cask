@@ -1,14 +1,19 @@
-cask 'godot-mono' do
-  version '3.2.2'
-  sha256 '84c99d3dbd151a9f088c5cf3dd99f2185c43af2ab650bb11ec37404907e76ec6'
+cask "godot-mono" do
+  version "3.3.3"
+  sha256 "eda30ee9a433e17876bd83dfc5301be55307c718215f8d072b7972d99b33f01c"
 
-  # downloads.tuxfamily.org/godotengine/ was verified as official when first introduced to the cask
-  url "https://downloads.tuxfamily.org/godotengine/#{version}/mono/Godot_v#{version}-stable_mono_osx.64.zip"
-  appcast 'https://github.com/godotengine/godot/releases.atom'
-  name 'Godot Engine'
-  homepage 'https://godotengine.org/'
+  url "https://downloads.tuxfamily.org/godotengine/#{version}/mono/Godot_v#{version}-stable_mono_osx.64.zip",
+      verified: "downloads.tuxfamily.org/godotengine/"
+  name "Godot Engine"
+  desc "2D and 3D game engine"
+  homepage "https://godotengine.org/"
 
-  depends_on formula: 'mono'
+  livecheck do
+    url "https://github.com/godotengine/godot"
+    regex(/^v?(\d+(?:\.\d+)+)[._-]stable$/)
+  end
 
-  app 'Godot_mono.app'
+  depends_on formula: "mono"
+
+  app "Godot_mono.app"
 end

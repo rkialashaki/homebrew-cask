@@ -1,18 +1,27 @@
-cask 'wifi-explorer' do
-  version '2.6'
-  sha256 'd9d0712b73d4d32cb6380ce7ba88d458f5f2b81bbcf06f9784f708b658a39724'
+cask "wifi-explorer" do
+  version "3.3.1,46"
+  sha256 "34131f165e6a01fdaa23ddfc416fcd11a77131bc04737279fb4eb4f22e2b84a6"
 
-  url "https://www.adriangranados.com/downloads/WiFiExplorer_#{version}.zip"
-  appcast 'https://www.adriangranados.com/appcasts/wifiexplorercast.xml'
-  name 'WiFi Explorer'
-  homepage 'https://www.adriangranados.com/apps/wifi-explorer'
+  url "https://www.intuitibits.com/downloads/WiFiExplorer_#{version.before_comma}.dmg"
+  name "WiFi Explorer"
+  desc "Scan, monitor, and troubleshoot wireless networks"
+  homepage "https://www.intuitibits.com/products/wifi-explorer/"
 
-  app 'WiFi Explorer.app'
+  livecheck do
+    url "https://www.intuitibits.com/appcasts/wifiexplorercast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :high_sierra"
+
+  app "WiFi Explorer.app"
 
   zap trash: [
-               '~/Library/Caches/wifiexplorer',
-               '~/Library/Cookies/wifiexplorer.binarycookies',
-               '~/Library/Preferences/wifiexplorer.plist',
-               '~/Library/Saved Application State/wifiexplorer.savedState',
-             ]
+    "~/Library/Caches/wifiexplorer",
+    "~/Library/Cookies/wifiexplorer.binarycookies",
+    "~/Library/Group Containers/2B9R362QNU.com.adriangranados.wifiexplorer",
+    "~/Library/Preferences/com.adriangranados.wifiexplorer*",
+    "~/Library/Preferences/wifiexplorer.plist",
+    "~/Library/Saved Application State/wifiexplorer.savedState",
+  ]
 end

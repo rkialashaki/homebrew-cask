@@ -1,14 +1,26 @@
-cask 'royal-tsx' do
-  version '4.3.1.1000'
-  sha256 'f8c58070eb021c6486e3a5ccdb64c701cee958b846fd3d94c51a7f14b0cf82e8'
+cask "royal-tsx" do
+  version "5.0.4.1000"
+  sha256 "fae73b18b0d5c22fd34aa8ca8b9bf61e4704079bfa02ddc5bbd311a9b09425e0"
 
-  # https://royaltsx-v4.royalapplications.com/ was verified as official when first introduced to the cask
-  url "https://royaltsx-v4.royalapplications.com/updates/royaltsx_#{version}.dmg"
-  appcast "https://royaltsx-v#{version.major}.royalapplications.com/updates_stable.php"
-  name 'Royal TSX'
-  homepage 'https://www.royalapplications.com/ts/mac/features'
+  url "https://royaltsx-v#{version.major}.royalapps.com/updates/royaltsx_#{version}.dmg"
+  name "Royal TSX"
+  desc "Remote management solution"
+  homepage "https://www.royalapps.com/ts/mac/features"
 
-  auto_updates :yes
+  livecheck do
+    url "https://royaltsx-v#{version.major}.royalapps.com/updates_stable.php"
+    strategy :sparkle
+  end
 
-  app 'Royal TSX.app'
+  auto_updates true
+  depends_on macos: ">= :mojave"
+
+  app "Royal TSX.app"
+
+  zap trash: [
+    "~/Library/Application Support/Royal TSX",
+    "~/Library/Application Support/com.lemonmojo.RoyalTSX.App",
+    "~/Library/Caches/com.lemonmojo.RoyalTSX.App",
+    "~/Library/Preferences/com.lemonmojo.RoyalTSX.App.plist",
+  ]
 end

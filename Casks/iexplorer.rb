@@ -1,11 +1,18 @@
-cask 'iexplorer' do
-  version '4.3.8,172'
-  sha256 '919f12b8df70f1d64e4299402bd1881ac3a7b4b87e5494f16504b26d98931a65'
+cask "iexplorer" do
+  version "4.5.0,178"
+  sha256 "9c30670bc13d2d29b2e91564da5dd7413310724d91406099b3b6e1e0cead3ed2"
 
   url "https://assets.macroplant.com/download/#{version.after_comma}/iExplorer-#{version.before_comma}.dmg"
-  appcast "https://macroplant.com/iexplorer/mac/v#{version.major}/appcast"
-  name 'iExplorer'
-  homepage 'https://macroplant.com/iexplorer'
+  name "iExplorer"
+  desc "iOS device backup software and file manager"
+  homepage "https://macroplant.com/iexplorer"
 
-  app 'iExplorer.app'
+  livecheck do
+    url "https://macroplant.com/iexplorer/mac/v#{version.major}/appcast"
+    strategy :sparkle do |item|
+      "#{item.version},#{item.url[%r{/(\d+)/iExplorer-(?:\d+(?:\.\d+)*)\.dmg}, 1]}"
+    end
+  end
+
+  app "iExplorer.app"
 end

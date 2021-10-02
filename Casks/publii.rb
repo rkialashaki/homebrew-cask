@@ -1,18 +1,24 @@
-cask 'publii' do
-  version '0.36.1'
-  sha256 '53f6f09833069274aec7b8233e5babb2d9feec7b5a7ea2de80be593f668878a7'
+cask "publii" do
+  version "0.38.3"
+  sha256 "24d3dc60779eba8ea366613bc6318e3bb1739984a4281544743a86fce9398f8a"
 
   url "https://cdn.getpublii.com/Publii-#{version}.dmg"
-  appcast 'https://getpublii.com/download/'
-  name 'Publii'
-  homepage 'https://getpublii.com/'
+  name "Publii"
+  desc "Static website generator"
+  homepage "https://getpublii.com/"
 
-  app 'Publii.app'
+  livecheck do
+    url "https://getpublii.com/download/"
+    strategy :page_match
+    regex(%r{href=.*?/Publii-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "Publii.app"
 
   zap trash: [
-               '~/Documents/Publii',
-               '~/Library/Application Support/Publii',
-               '~/Library/Logs/Publii',
-               '~/Library/Preferences/com.tidycustoms.publii.plist',
-             ]
+    "~/Documents/Publii",
+    "~/Library/Application Support/Publii",
+    "~/Library/Logs/Publii",
+    "~/Library/Preferences/com.tidycustoms.publii.plist",
+  ]
 end

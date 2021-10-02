@@ -1,21 +1,28 @@
-cask 'beatunes' do
-  version '5.2.9'
-  sha256 'e370014e564fb864396d72dffaff4f30ad54fc563585f4e0836987923f4db00d'
+cask "beatunes" do
+  version "5.2.24"
+  sha256 "4b996430797fa1439177402ae2ebf71ad98ccd79516c9c1c4557d78614c0b23b"
 
-  url "http://coxy.beatunes.com/download/beaTunes-#{version.dots_to_hyphens}.dmg"
-  appcast 'https://www.beatunes.com/en/beatunes-download.html',
-          must_contain: version.dots_to_hyphens
-  name 'beaTunes'
-  homepage 'https://www.beatunes.com/'
+  url "https://coxy.beatunes.com/download/beaTunes-#{version.dots_to_hyphens}.dmg"
+  name "beaTunes"
+  desc "Analyze, inspect, and play songs"
+  homepage "https://www.beatunes.com/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://www.beatunes.com/en/beatunes-download.html"
+    strategy :page_match do |page|
+      v = page[/href=.*?beaTunes-(\d+(?:-\d+)*)\.dmg/i, 1]
+      v.tr("-", ".")
+    end
+  end
+
+  depends_on macos: ">= :el_capitan"
 
   app "beaTunes#{version.major}.app"
 
   zap trash: [
-               '~/Library/Application Support/beaTunes',
-               '~/Library/Caches/beaTunes',
-               '~/Library/Logs/beaTunes',
-               '~/Library/Preferences/com.tagtraum.beatunes.plist',
-             ]
+    "~/Library/Application Support/beaTunes",
+    "~/Library/Caches/beaTunes",
+    "~/Library/Logs/beaTunes",
+    "~/Library/Preferences/com.tagtraum.beatunes.plist",
+  ]
 end

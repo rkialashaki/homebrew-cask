@@ -1,18 +1,23 @@
-cask 'gnucash' do
-  version '3.11,1'
-  sha256 '840eb08731a58e463efaf640bd011637d3f23a6125ee313c167de1f1640424dd'
+cask "gnucash" do
+  version "4.8"
+  sha256 "abb6a0bc433207c1f31fee33aa7f0c63774217b2675e5fab78062c4cd862f975"
 
-  # github.com/Gnucash/gnucash/ was verified as official when first introduced to the cask
-  url "https://github.com/Gnucash/gnucash/releases/download/#{version.before_comma}/Gnucash-Intel-#{version.before_comma.chomp('b')}-#{version.after_comma}.dmg"
-  appcast 'https://github.com/Gnucash/gnucash/releases.atom'
-  name 'GnuCash'
-  homepage 'https://www.gnucash.org/'
+  url "https://github.com/Gnucash/gnucash/releases/download/#{version}/Gnucash-Intel-#{version}-1.dmg",
+      verified: "github.com/Gnucash/gnucash/"
+  name "GnuCash"
+  desc "Double-entry accounting program"
+  homepage "https://www.gnucash.org/"
 
-  app 'Gnucash.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  app "Gnucash.app"
 
   zap trash: [
-               '~/Library/Application Support/Gnucash',
-               '~/Library/Preferences/org.gnucash.Gnucash.plist',
-               '~/Library/Saved Application State/org.gnucash.Gnucash.savedState',
-             ]
+    "~/Library/Application Support/Gnucash",
+    "~/Library/Preferences/org.gnucash.Gnucash.plist",
+    "~/Library/Saved Application State/org.gnucash.Gnucash.savedState",
+  ]
 end

@@ -1,13 +1,18 @@
-cask 'redisinsight' do
-  version '1.6.0'
-  sha256 '3ff46465ebe7612af2dc5716bae3ab830e0c23839cb2ef37b84fd9f3b423daf3'
+cask "redisinsight" do
+  version "1.10.1"
+  sha256 "2f6ff3044a75740549fe7bd452cdfbfb1aa6b9c04c3b85a4ab727875d68c4eee"
 
   url "https://downloads.redisinsight.redislabs.com/#{version}/redisinsight-mac.dmg"
-  appcast 'https://docs.redislabs.com/latest/ri/release-notes/'
-  name 'RedisInsight'
-  homepage 'https://www.redislabs.com/redisinsight/'
+  name "RedisInsight"
+  desc "GUI for streamlined Redis application development"
+  homepage "https://www.redislabs.com/redisinsight/"
 
-  app 'redisinsight.app'
+  livecheck do
+    url "https://downloads.redisinsight.redislabs.com/latest/redisinsight-mac.dmg"
+    strategy :header_match
+  end
 
-  zap trash: '~/Library/Saved Application State/com.redislabs.redisinsight.savedState'
+  app "RedisInsight.app"
+
+  zap trash: "~/Library/Saved Application State/com.redislabs.redisinsight.savedState"
 end

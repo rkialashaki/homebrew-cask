@@ -1,11 +1,18 @@
-cask 'elpass' do
-  version '1.1.6,265'
-  sha256 '1d99d79ed12d65e703d3cdd7d554b54982360bd00ca952960ff373179f95a56b'
+cask "elpass" do
+  version "1.3.5,363"
+  sha256 "326ca7831ca16e6469be4bc8843d8338804e86d0d6cf15dd3fd25aff5347f842"
 
   url "https://elpass.app/macos/Elpass-#{version.before_comma}-#{version.after_comma}.zip"
-  appcast 'https://elpass.app/macos/appcast.xml'
-  name 'Elpass'
-  homepage 'https://elpass.app/'
+  name "Elpass"
+  desc "Password manager"
+  homepage "https://elpass.app/"
 
-  app 'Elpass.app'
+  livecheck do
+    url "https://elpass.app/macos/appcast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "Elpass.app"
 end

@@ -1,22 +1,27 @@
-cask 'ringcentral' do
-  version '20.2.31'
-  sha256 'acbf0577337546da9275a602a13f79c1482cf287e17cde2774b2cc4df82d464b'
+cask "ringcentral" do
+  version "21.3.20"
+  sha256 :no_check
 
-  url 'https://app.ringcentral.com/downloads/RingCentral.pkg'
-  appcast 'https://app.ringcentral.com/download/latest-mac.yml'
-  name 'RingCentral'
-  homepage 'https://www.ringcentral.com/rcapp.html'
+  url "https://app.ringcentral.com/downloads/RingCentral.pkg"
+  name "RingCentral"
+  desc "Team messaging, video meetings, and a business phone"
+  homepage "https://www.ringcentral.com/rcapp.html"
 
-  pkg 'RingCentral.pkg'
+  livecheck do
+    url "https://app.ringcentral.com/download/latest-mac.yml"
+    strategy :electron_builder
+  end
 
-  uninstall delete:  '/Applications/RingCentral.app',
-            quit:    'RingCentral',
-            pkgutil: 'com.ringcentral.glip'
+  pkg "RingCentral.pkg"
+
+  uninstall delete:  "/Applications/RingCentral.app",
+            quit:    "RingCentral",
+            pkgutil: "com.ringcentral.glip"
 
   zap trash: [
-               '~/Library/Application Support/RingCentral',
-               '~/Library/Logs/RingCentral',
-               '~/Library/Preferences/com.ringcentral.glip.plist',
-               '~/Library/Saved Application State/com.ringcentral.glip.savedState',
-             ]
+    "~/Library/Application Support/RingCentral",
+    "~/Library/Logs/RingCentral",
+    "~/Library/Preferences/com.ringcentral.glip.plist",
+    "~/Library/Saved Application State/com.ringcentral.glip.savedState",
+  ]
 end

@@ -1,16 +1,22 @@
-cask 'chrysalis' do
-  version '0.7.7'
-  sha256 '90decd69c206f0e55b66e47b414b17588379b607d5ccb14cdf448674d0474c42'
+cask "chrysalis" do
+  version "0.8.5"
+  sha256 "bd75f5b7e65e08202d54535c0e4440a062467183a62f01402b8dcd4c278fca6f"
 
-  url "https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-#{version}/Chrysalis-#{version}.dmg"
-  appcast 'https://github.com/keyboardio/Chrysalis/releases.atom'
-  name 'Chrysalis'
-  homepage 'https://github.com/keyboardio/Chrysalis'
+  url "https://github.com/keyboardio/Chrysalis/releases/download/v#{version}/Chrysalis-#{version}.dmg"
+  name "Chrysalis"
+  desc "Graphical configurator for Kaleidoscope-powered keyboards"
+  homepage "https://github.com/keyboardio/Chrysalis"
 
-  app 'Chrysalis.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+    regex(%r{href=.*?/Chrysalis-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "Chrysalis.app"
 
   zap trash: [
-               '~/Library/Application Support/chrysalis',
-               '~/Library/Preferences/keyboardio.chrysalis.plist',
-             ]
+    "~/Library/Application Support/chrysalis",
+    "~/Library/Preferences/keyboardio.chrysalis.plist",
+  ]
 end

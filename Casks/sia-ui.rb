@@ -1,10 +1,15 @@
-cask 'sia-ui' do
-  version '1.4.11'
-  sha256 '93287c0c427522415346e8b79de5567f40017625bc2a7f920305e93e7b85cd61'
+cask "sia-ui" do
+  version "1.5.6"
+  sha256 "fc45e726130ec43026c3ec556290c8b86bfac8fb13e3bc14bde3a1dbf7370e49"
 
   url "https://sia.tech/releases/Sia-UI-v#{version}.dmg"
-  name 'Sia-UI'
-  homepage 'https://sia.tech/'
+  name "Sia-UI"
+  desc "Graphical frontend for Sia"
+  homepage "https://sia.tech/"
 
-  app 'Sia-UI.app'
+  livecheck do
+    skip "No version information available"
+  end
+
+  app "Sia-UI.app"
 end

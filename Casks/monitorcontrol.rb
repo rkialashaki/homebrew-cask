@@ -1,13 +1,19 @@
-cask 'monitorcontrol' do
-  version '2.0.0'
-  sha256 '29b71d2c19f63a8f03923dd50c8e9ba59216486604a4fe11a0b0d85390b5e307'
+cask "monitorcontrol" do
+  version "3.1.1"
+  sha256 "41fa75f378e2a1d0ec0b90fae9cfe4f6859d1628fecf32d23ad7b5447beb78e1"
 
-  url "https://github.com/the0neyouseek/MonitorControl/releases/download/v#{version}/MonitorControl.#{version}.dmg"
-  appcast 'https://github.com/the0neyouseek/MonitorControl/releases.atom'
-  name 'MonitorControl'
-  homepage 'https://github.com/the0neyouseek/MonitorControl'
+  url "https://github.com/MonitorControl/MonitorControl/releases/download/v#{version}/MonitorControl.#{version}.dmg"
+  name "MonitorControl"
+  desc "Tool to control external monitor brightness & volume"
+  homepage "https://github.com/MonitorControl/MonitorControl"
 
-  depends_on macos: '>= :sierra'
+  depends_on macos: ">= :sierra"
 
-  app 'MonitorControl.app'
+  app "MonitorControl.app"
+
+  zap trash: [
+    "~/Library/Application Scripts/me.guillaumeb.MonitorControlHelper",
+    "~/Library/Containers/me.guillaumeb.MonitorControlHelper",
+    "~/Library/Preferences/me.guillaumeb.MonitorControl.plist",
+  ]
 end

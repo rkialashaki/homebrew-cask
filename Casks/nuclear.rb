@@ -1,19 +1,19 @@
-cask 'nuclear' do
-  version '0.6.3,fca030'
-  sha256 'ae4e3f599089bb484ac503547c8553517da0689a1f9d2515487bac174f4a0e4d'
+cask "nuclear" do
+  version "0.6.16"
+  sha256 "4487cb19350f30e7731e259f368773f507c99675e92573eafbfbd24cbd4c7a89"
 
-  # github.com/nukeop/nuclear/ was verified as official when first introduced to the cask
-  url "https://github.com/nukeop/nuclear/releases/download/v#{version.before_comma}/nuclear-#{version.after_comma}.dmg"
-  appcast 'https://github.com/nukeop/nuclear/releases.atom'
-  name 'Nuclear'
-  homepage 'https://nuclear.js.org/'
+  url "https://github.com/nukeop/nuclear/releases/download/v#{version}/nuclear-v#{version}.dmg",
+      verified: "github.com/nukeop/nuclear/"
+  name "Nuclear"
+  desc "Streaming music player"
+  homepage "https://nuclear.js.org/"
 
-  app 'nuclear.app'
+  app "nuclear.app"
 
   zap trash: [
-               '~/Library/Application Support/nuclear',
-               '~/Library/Logs/nuclear',
-               '~/Library/Preferences/nuclear.plist',
-               '~/Library/Saved Application State/nuclear.savedState',
-             ]
+    "~/Library/Application Support/nuclear",
+    "~/Library/Logs/nuclear",
+    "~/Library/Preferences/nuclear.plist",
+    "~/Library/Saved Application State/nuclear.savedState",
+  ]
 end

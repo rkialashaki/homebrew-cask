@@ -1,21 +1,25 @@
-cask 'jamovi' do
-  version '1.1.9.0'
-  sha256 'edc430dd3c3be63b2e7a4ea42a09c2c7cb3d34d747f0e8b4742c37c08c00af44'
+cask "jamovi" do
+  version "2.0.1.0"
+  sha256 "eebfde935ebd9ab939dc60cf2be05acd8026adf66ac7361485af2b26bb69d05a"
 
   url "https://www.jamovi.org/downloads/jamovi-#{version}-macos.dmg"
-  appcast 'https://www.jamovi.org/download.html',
-          must_contain: "solid</td><td>.dmg</td><td>#{version.chomp('.0')}"
-  name 'jamovi'
-  homepage 'https://www.jamovi.org/'
+  name "jamovi"
+  desc "Statistical software"
+  homepage "https://www.jamovi.org/"
+
+  livecheck do
+    url "https://www.jamovi.org/download.html"
+    regex(%r{href=.*?/jamovi[._-]v?(\d+(?:\.\d+)+)[._-]macos\.dmg}i)
+  end
 
   auto_updates true
 
-  app 'jamovi.app'
+  app "jamovi.app"
 
   zap trash: [
-               '~/Library/Application Support/jamovi/',
-               '~/Library/Logs/jamovi',
-               '~/Library/Preferences/org.jamovi.jamovi.plist',
-               '~/Library/Saved Application State/org.jamovi.jamovi.savedState/',
-             ]
+    "~/Library/Application Support/jamovi/",
+    "~/Library/Logs/jamovi",
+    "~/Library/Preferences/org.jamovi.jamovi.plist",
+    "~/Library/Saved Application State/org.jamovi.jamovi.savedState/",
+  ]
 end

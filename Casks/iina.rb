@@ -1,30 +1,35 @@
-cask 'iina' do
-  version '1.0.7'
-  sha256 '1b1938b3a9640b4c26960aefab1ebe077bfaaf4b7a62ccfce5a7e138c9c56d75'
+cask "iina" do
+  version "1.2.0,129"
+  sha256 "91b87e80055f097a1cb7a8c91979deb5303315f2067552cbe7387f48bfc42736"
 
-  url "https://dl.iina.io/IINA.v#{version}.dmg"
-  appcast 'https://iina.io/appcast.xml'
-  name 'IINA'
-  homepage 'https://iina.io/'
+  url "https://dl.iina.io/IINA.v#{version.before_comma}.dmg"
+  name "IINA"
+  desc "Free and open-source media player"
+  homepage "https://iina.io/"
+
+  livecheck do
+    url "https://www.iina.io/appcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
-  depends_on macos: '>= :el_capitan'
+  depends_on macos: ">= :el_capitan"
 
-  app 'IINA.app'
-  binary "#{appdir}/IINA.app/Contents/MacOS/iina-cli", target: 'iina'
+  app "IINA.app"
+  binary "#{appdir}/IINA.app/Contents/MacOS/iina-cli", target: "iina"
 
   zap trash: [
-               '~/Library/Application Scripts/com.colliderli.iina.OpenInIINA',
-               '~/Library/Application Support/com.colliderli.iina',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.colliderli.iina.sfl*',
-               '~/Library/Application Support/CrashReporter/IINA*.plist',
-               '~/Library/Caches/com.colliderli.iina',
-               '~/Library/Containers/com.colliderli.iina.OpenInIINA',
-               '~/Library/Cookies/com.colliderli.iina.binarycookies',
-               '~/Library/Logs/com.colliderli.iina',
-               '~/Library/Logs/DiagnosticReports/IINA*.crash',
-               '~/Library/Preferences/com.colliderli.iina.plist',
-               '~/Library/Safari/Extensions/Open in IINA*.safariextz',
-               '~/Library/Saved Application State/com.colliderli.iina.savedState',
-             ]
+    "~/Library/Application Scripts/com.colliderli.iina.OpenInIINA",
+    "~/Library/Application Support/com.colliderli.iina",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.colliderli.iina.sfl*",
+    "~/Library/Application Support/CrashReporter/IINA*.plist",
+    "~/Library/Caches/com.colliderli.iina",
+    "~/Library/Containers/com.colliderli.iina.OpenInIINA",
+    "~/Library/Cookies/com.colliderli.iina.binarycookies",
+    "~/Library/Logs/com.colliderli.iina",
+    "~/Library/Logs/DiagnosticReports/IINA*.crash",
+    "~/Library/Preferences/com.colliderli.iina.plist",
+    "~/Library/Safari/Extensions/Open in IINA*.safariextz",
+    "~/Library/Saved Application State/com.colliderli.iina.savedState",
+  ]
 end

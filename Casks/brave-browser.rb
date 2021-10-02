@@ -1,20 +1,39 @@
-cask 'brave-browser' do
-  version '83.1.10.97,110.97'
-  sha256 '8f484b22ac10d31268f779d4674c738ace1b2bbd2a0c706f03e066736c8827d1'
+cask "brave-browser" do
+  version "1.30.87.0,130.87"
 
-  # updates-cdn.bravesoftware.com/sparkle/Brave-Browser/ was verified as official when first introduced to the cask
-  url "https://updates-cdn.bravesoftware.com/sparkle/Brave-Browser/stable/#{version.after_comma}/Brave-Browser.dmg"
-  appcast 'https://updates.bravesoftware.com/sparkle/Brave-Browser/stable/appcast.xml'
-  name 'Brave'
-  homepage 'https://brave.com/'
+  if Hardware::CPU.intel?
+    sha256 "f433962e968c565f76671b0ef6cee0cbf64a9b70a43a73985ab6a09d9f21379f"
+
+    url "https://updates-cdn.bravesoftware.com/sparkle/Brave-Browser/stable/#{version.after_comma}/Brave-Browser-x64.dmg",
+        verified: "updates-cdn.bravesoftware.com/sparkle/Brave-Browser/"
+
+    livecheck do
+      url "https://updates.bravesoftware.com/sparkle/Brave-Browser/stable/appcast.xml"
+      strategy :sparkle
+    end
+  else
+    sha256 "a237737f443ea4ac87d948010a4210f1ca24c4a5247502ba93d6dc66262c473e"
+
+    url "https://updates-cdn.bravesoftware.com/sparkle/Brave-Browser/stable-arm64/#{version.after_comma}/Brave-Browser-arm64.dmg",
+        verified: "updates-cdn.bravesoftware.com/sparkle/Brave-Browser/"
+
+    livecheck do
+      url "https://updates.bravesoftware.com/sparkle/Brave-Browser/stable-arm64/appcast.xml"
+      strategy :sparkle
+    end
+  end
+
+  name "Brave"
+  desc "Web browser focusing on privacy"
+  homepage "https://brave.com/"
 
   auto_updates true
 
-  app 'Brave Browser.app'
+  app "Brave Browser.app"
 
   zap trash: [
-               '~/Library/Application Support/BraveSoftware/Brave-Browser',
-               '~/Library/Preferences/com.brave.Browser.plist',
-               '~/Library/Saved Application State/com.brave.Browser.savedState',
-             ]
+    "~/Library/Application Support/BraveSoftware/Brave-Browser",
+    "~/Library/Preferences/com.brave.Browser.plist",
+    "~/Library/Saved Application State/com.brave.Browser.savedState",
+  ]
 end

@@ -1,18 +1,25 @@
-cask 'fontbase' do
-  version '2.11.3'
-  sha256 'c29ea63ae04de1ca67b51c892649e25783442d8d00d70ce41510cd43187d2d2c'
+cask "fontbase" do
+  version "2.16.6"
+  sha256 "82260dc4c8dd46031ce363505a0387f6f9e64295e4df801206d5b8cb6320d106"
 
   url "https://releases.fontba.se/mac/FontBase-#{version}.dmg"
-  appcast 'https://releases.fontba.se/mac/latest-mac.yml'
-  name 'FontBase'
-  homepage 'https://fontba.se/'
+  name "FontBase"
+  desc "Font manager"
+  homepage "https://fontba.se/"
 
-  app 'FontBase.app'
+  livecheck do
+    url "https://releases.fontba.se/mac/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  auto_updates true
+
+  app "FontBase.app"
 
   zap trash: [
-               '~/Library/Preferences/com.dominiklevitsky.fontbase.helper.plist',
-               '~/Library/Preferences/com.dominiklevitsky.fontbase.plist',
-               '~/Library/Application Support/FontBase',
-               '~/Library/Saved Application State/com.dominiklevitsky.fontbase.savedState',
-             ]
+    "~/Library/Application Support/FontBase",
+    "~/Library/Preferences/com.dominiklevitsky.fontbase.helper.plist",
+    "~/Library/Preferences/com.dominiklevitsky.fontbase.plist",
+    "~/Library/Saved Application State/com.dominiklevitsky.fontbase.savedState",
+  ]
 end

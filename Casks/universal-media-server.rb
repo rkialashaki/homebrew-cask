@@ -1,14 +1,16 @@
-cask 'universal-media-server' do
-  version '9.7.0'
-  sha256 '2831d8ee4c6cfd9bea636b785aac7d82df2d150964de32511f40dd702452e8be'
+cask "universal-media-server" do
+  version "10.12.0"
+  sha256 "bc04df210e6d5f23d891c2188ccb331714ca48f337af0cac96a1da17ba1ff79d"
 
-  # github.com/UniversalMediaServer/UniversalMediaServer/ was verified as official when first introduced to the cask
-  url "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/#{version}/UMS-#{version}.dmg"
-  appcast 'https://github.com/UniversalMediaServer/UniversalMediaServer/releases.atom'
-  name 'Universal Media Server'
-  homepage 'https://www.universalmediaserver.com/'
+  url "https://github.com/UniversalMediaServer/UniversalMediaServer/releases/download/#{version}/UMS-#{version}.dmg",
+      verified: "github.com/UniversalMediaServer/UniversalMediaServer/"
+  name "Universal Media Server"
+  desc "Media server supporting DLNA, UPnP and HTTP(S)"
+  homepage "https://www.universalmediaserver.com/"
 
-  app 'Universal Media Server.app'
+  depends_on macos: ">= :catalina"
 
-  zap trash: '~/Library/Application Support/UMS/'
+  app "Universal Media Server.app"
+
+  zap trash: "~/Library/Application Support/UMS/"
 end

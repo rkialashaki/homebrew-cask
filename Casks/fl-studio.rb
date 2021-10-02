@@ -1,13 +1,23 @@
-cask 'fl-studio' do
-  version '20.7.1.1094'
-  sha256 'a7a7ddfbd82ed28f9f6f25eb7dbef90188f14103bbc372efc0823e35fecec16b'
+cask "fl-studio" do
+  version "20.8.4.2072"
+  sha256 "7c1645f35273804f01ba033dd8ee32bad9fd7a23174cc54e515dce3136a2867f"
 
-  url "http://demodownload.image-line.com/flstudio/flstudio_mac_#{version}.dmg"
-  appcast 'https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://support.image-line.com/redirect/flstudio20_mac_installer'
-  name 'FL Studio'
-  homepage 'https://www.image-line.com/flstudio/'
+  url "https://demodownload.image-line.com/flstudio/flstudio_mac_#{version}.dmg"
+  name "FL Studio"
+  desc "Digital audio production application"
+  homepage "https://www.image-line.com/flstudio/"
 
-  pkg 'Install FL Studio.pkg'
+  livecheck do
+    url "https://support.image-line.com/redirect/flstudio20_mac_installer"
+    strategy :header_match
+  end
 
-  uninstall pkgutil: 'com.Image-Line.pkg.FLStudio64'
+  pkg "Install FL Studio.pkg"
+
+  uninstall pkgutil: "com.Image-Line.pkg.FLStudio64"
+
+  zap trash: [
+    "~/Library/Caches/com.image-line.flstudio",
+    "~/Library/Preferences/com.image-line.flstudio.plist",
+  ]
 end

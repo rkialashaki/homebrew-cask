@@ -1,20 +1,26 @@
-cask 'utools' do
-  version '1.1.3'
-  sha256 'e8403c2b8a19a1863fb306fc8b8b038ce13a8c96bc38e263ac73dfbb34aa555c'
+cask "utools" do
+  version "2.1.0"
+  sha256 "3cc48b309b696ca5c92f11e0d32d96edf25ce0772ff5e279365f09e7c402bc03"
 
-  # resource.u-tools.cn/ was verified as official when first introduced to the cask
-  url "https://resource.u-tools.cn/currentversion/uTools-#{version}.dmg"
-  appcast 'https://resource.u-tools.cn/currentversion/latest-mac.yml'
-  name 'uTools'
-  homepage 'https://u.tools/index.html'
+  url "https://publish.u-tools.cn/version2/uTools-#{version}.dmg",
+      verified: "publish.u-tools.cn/"
+  name "uTools"
+  desc "Plug-in productivity tool set"
+  homepage "https://u.tools/index.html"
+
+  livecheck do
+    url "https://publish.u-tools.cn/version2/latest-mac.yml?noCache=true"
+    strategy :electron_builder
+  end
 
   auto_updates true
-  depends_on macos: '>= :yosemite'
+  depends_on macos: ">= :yosemite"
 
-  app 'uTools.app'
+  app "uTools.app"
 
   zap trash: [
-               '~/Library/Application Support/uTools',
-               '~/Library/Logs/uTools',
-             ]
+    "~/Library/Application Support/uTools",
+    "~/Library/Logs/uTools",
+    "~/Library/Preferences/org.yuanli.utools.plist",
+  ]
 end

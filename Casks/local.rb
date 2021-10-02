@@ -1,19 +1,26 @@
-cask 'local' do
-  version '5.6.2,4213'
-  sha256 '74ff59a02287c641770f655a010aaba7ec42a192a9aa4c198ec192c2894f7ba5'
+cask "local" do
+  version "6.1.3,5515"
+  sha256 "37b6d0a83c941f1cac0dc87024c37c1c620e2e7ddbba6448db6b5b30f13a810c"
 
   url "https://cdn.localwp.com/releases-stable/#{version.before_comma}+#{version.after_comma}/local-#{version.before_comma}-mac.dmg"
-  appcast 'https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://cdn.localwp.com/stable/latest/mac'
-  name 'Local'
-  homepage 'https://localwp.com/'
+  name "Local"
+  desc "WordPress local development tool by Flywheel"
+  homepage "https://localwp.com/"
 
-  app 'Local.app'
+  livecheck do
+    url "https://cdn.localwp.com/stable/latest/mac"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/(\d+(?:\.\d+)*)\+(\d+)/})
+      "#{match[1]},#{match[2]}"
+    end
+  end
+
+  app "Local.app"
 
   zap trash: [
-               '~/Library/Application Support/Local by Flywheel',
-               '~/Library/Logs/local-by-flywheel.log',
-               '~/Library/Preferences/com.getflywheel.local.plist',
-               '~/Library/Preferences/com.getflywheel.local.helper.plist',
-               '~/Library/Saved Application State/com.getflywheel.local.savedState',
-             ]
+    "~/Library/Application Support/Local",
+    "~/Library/Logs/local-lightning.log",
+    "~/Library/Preferences/com.getflywheel.lightning.local.plist",
+    "~/Library/Saved Application State/com.getflywheel.lightning.local.savedState",
+  ]
 end

@@ -1,11 +1,15 @@
-cask 'data-integration' do
-  version '8.3.0.0-371'
-  sha256 'c0dbb17248135423fe6336bc8f45b01c2cf15a9b0498fa1d27c24588b3fa2872'
+cask "data-integration" do
+  version "9.2.0.0-290"
+  sha256 "8e64d1125b2403df66f212488762f1558968a3900d079c730b2f6943e346a7e7"
 
   url "https://downloads.sourceforge.net/pentaho/pdi-ce-#{version}.zip"
-  appcast 'https://sourceforge.net/projects/pentaho/rss?path=/'
-  name 'Pentaho Data Integration'
-  homepage 'https://sourceforge.net/projects/pentaho/'
+  name "Pentaho Data Integration"
+  desc "End to end data integration and analytics platform"
+  homepage "https://sourceforge.net/projects/pentaho/"
 
-  app 'data-integration/Data Integration.app'
+  livecheck do
+    regex(/pdi-ce-(\d+(?:[.-]\d+)+)\.zip/i)
+  end
+
+  app "data-integration/Data Integration.app"
 end

@@ -1,18 +1,23 @@
-cask 'sipgate-softphone' do
-  version '1.9.12'
-  sha256 'fa938c5475cfcec00dce8778ffa1e2048922a81f4e4f11d053581b9dd3b742f6'
+cask "sipgate-softphone" do
+  version "1.16.3"
+  sha256 "3bce366656f5d43ce87b62de9382e355df23fbb4a4df6e3547f1fe2d8964582d"
 
-  # sipgate-desktop-app.s3.eu-central-1.amazonaws.com was verified as official when first introduced to the cask
-  url 'https://sipgate-desktop-app.s3.eu-central-1.amazonaws.com/sipgate-softphone.dmg'
-  appcast 'https://sipgate-desktop-app-dev.s3.amazonaws.com/latest-mac.yml'
-  name 'sipgate softphone'
-  homepage 'https://www.sipgateteam.de/softphone'
+  url "https://sipgate-desktop-app-dev.s3.amazonaws.com/sipgate-softphone-#{version}.dmg",
+      verified: "sipgate-desktop-app-dev.s3.amazonaws.com/"
+  name "Sipgate Softphone"
+  desc "Make telephone calls on the computer"
+  homepage "https://www.sipgateteam.de/softphone"
 
-  app 'sipgate softphone.app'
+  livecheck do
+    url "https://sipgate-desktop-app-dev.s3.amazonaws.com/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  app "sipgate softphone.app"
 
   zap trash: [
-               '~/Library/Saved Application State/com.sipgate.desktop.savedState',
-               '~/Library/Preferences/com.sipgate.desktop.plist',
-               '~/Library/Saved Application State/com.sipgate.desktop.savedState',
-             ]
+    "~/Library/Saved Application State/com.sipgate.desktop.savedState",
+    "~/Library/Preferences/com.sipgate.desktop.plist",
+    "~/Library/Saved Application State/com.sipgate.desktop.savedState",
+  ]
 end

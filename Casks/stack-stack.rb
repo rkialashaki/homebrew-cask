@@ -1,23 +1,36 @@
-cask 'stack-stack' do
-  version '3.6.0'
-  sha256 'cc39d093069bdc165e663685f1d968354d32f59f68fd62d6cfa600fc6198a85c'
+cask "stack-stack" do
+  version "3.34.2"
 
-  # stack-v1.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://stack-v1.s3.amazonaws.com/builds/prod/Stack-#{version}.dmg"
-  appcast 'https://stack-v1.s3.amazonaws.com/'
-  name 'Stack'
-  homepage 'https://stackers.app/'
+  if Hardware::CPU.intel?
+    sha256 "53da0601c9fb7dcaa509c61a5cfbfd702f5875dbba081d9ed64b9257ff7711e0"
+
+    url "https://stack-v1.s3.amazonaws.com/builds/prod/Stack-#{version}.dmg",
+        verified: "stack-v1.s3.amazonaws.com/"
+  else
+    sha256 "871762f6bb04f45f9924222f24a4be4808e979b5586a69c779224ef294f3b557"
+
+    url "https://binaries.getstack.app/builds/prod/mac/arm64/Stack%20#{version}-arm64.dmg"
+  end
+
+  name "Stack"
+  desc "Workspace to manage all your productivity apps from one place"
+  homepage "https://getstack.app/"
+
+  livecheck do
+    url "https://stack-v1.s3.amazonaws.com/builds/prod/latest-mac.yml"
+    strategy :electron_builder
+  end
 
   auto_updates true
-  depends_on macos: '>= :yosemite'
+  depends_on macos: ">= :yosemite"
 
-  app 'Stack.app'
+  app "Stack.app"
 
-  uninstall quit:       'com.stack.io',
-            login_item: 'Stack'
+  uninstall quit:       "com.stack.io",
+            login_item: "Stack"
 
   zap trash: [
-               '~/Library/Application Support/Stack',
-               '~/Library/Preferences/com.stack.io.plist',
-             ]
+    "~/Library/Application Support/Stack",
+    "~/Library/Preferences/com.stack.io.plist",
+  ]
 end

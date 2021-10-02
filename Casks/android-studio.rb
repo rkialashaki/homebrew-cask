@@ -1,31 +1,42 @@
-cask 'android-studio' do
-  version '4.0.0.16,193.6514223'
-  sha256 '61b71dd3274085c16c597ea4a51a5d6c1e39957f358a3434eda79ecc332235ee'
+cask "android-studio" do
+  version "2020.3.1.24"
 
-  # google.com/dl/android/studio/ was verified as official when first introduced to the cask
-  url "https://dl.google.com/dl/android/studio/install/#{version.before_comma}/android-studio-ide-#{version.after_comma}-mac.dmg"
-  appcast 'https://dl.google.com/android/studio/patches/updates.xml',
-          must_contain: version.major_minor_patch
-  name 'Android Studio'
-  homepage 'https://developer.android.com/studio/index.html'
+  if Hardware::CPU.intel?
+    sha256 "291a519faef35b27f4d0f82805ba8a5e0019b09d5405743169b1b72cc66022f3"
+    url "https://redirector.gvt1.com/edgedl/android/studio/install/#{version}/android-studio-#{version}-mac.dmg",
+        verified: "redirector.gvt1.com/edgedl/android/studio/"
+  else
+    sha256 "1895dbb4860b79eb9470cf2ef7fa477cb1cac6e6d058e8b13ac38292e19993ec"
+    url "https://redirector.gvt1.com/edgedl/android/studio/ide-zips/#{version}/android-studio-#{version}-mac_arm.zip",
+        verified: "redirector.gvt1.com/edgedl/android/studio/"
+  end
+
+  name "Android Studio"
+  desc "Tools for building Android applications"
+  homepage "https://developer.android.com/studio/"
+
+  livecheck do
+    url :homepage
+    regex(/android-studio-(\d+(?:\.\d+)*)-mac/i)
+  end
 
   auto_updates true
 
-  app 'Android Studio.app'
+  app "Android Studio.app"
 
   zap trash: [
-               '~/Library/Android/sdk',
-               "~/Library/Application Support/AndroidStudio#{version.major_minor}",
-               "~/Library/Caches/AndroidStudio#{version.major_minor}",
-               "~/Library/Logs/AndroidStudio#{version.major_minor}",
-               "~/Library/Preferences/AndroidStudio#{version.major_minor}",
-               '~/Library/Preferences/com.android.Emulator.plist',
-               '~/Library/Preferences/com.google.android.studio.plist',
-               '~/Library/Saved Application State/com.google.android.studio.savedState',
-               '~/.android',
-             ],
+    "~/Library/Android/sdk",
+    "~/Library/Application Support/AndroidStudio#{version.major_minor}",
+    "~/Library/Caches/AndroidStudio#{version.major_minor}",
+    "~/Library/Logs/AndroidStudio#{version.major_minor}",
+    "~/Library/Preferences/AndroidStudio#{version.major_minor}",
+    "~/Library/Preferences/com.android.Emulator.plist",
+    "~/Library/Preferences/com.google.android.studio.plist",
+    "~/Library/Saved Application State/com.google.android.studio.savedState",
+    "~/.android",
+  ],
       rmdir: [
-               '~/AndroidStudioProjects',
-               '~/Library/Android',
-             ]
+        "~/AndroidStudioProjects",
+        "~/Library/Android",
+      ]
 end

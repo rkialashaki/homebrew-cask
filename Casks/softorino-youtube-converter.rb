@@ -1,11 +1,16 @@
-cask 'softorino-youtube-converter' do
-  version '2.1.16'
-  sha256 '4a2f74101feebfce6ae3540e70db66376adff63501506c8e20aeec291cd5f13b'
+cask "softorino-youtube-converter" do
+  version "2.1.34"
+  sha256 "83ec4d1ee654e939ae82f48a76597f3f1b63f113abb7fda1f0bd3289847a97c8"
 
   url "https://shining.softorino.com/shine_uploads/softorinoyoutubeconverter#{version.major}mac_#{version}.dmg"
-  appcast 'https://shining.softorino.com/appcast.php?abbr=syc2m'
-  name 'Softorino YouTube Converter'
-  homepage 'https://softorino.com/youtube-converter/'
+  name "Softorino YouTube Converter"
+  desc "YouTube downloader and converter"
+  homepage "https://softorino.com/youtube-converter/"
+
+  livecheck do
+    url "https://shining.softorino.com/appcast.php?abbr=syc2m"
+    strategy :sparkle
+  end
 
   app "Softorino YouTube Converter #{version.major}.app"
 end

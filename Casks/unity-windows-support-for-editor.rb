@@ -1,15 +1,28 @@
-cask 'unity-windows-support-for-editor' do
-  version '2019.4.1f1,e6c045e14e4e'
-  sha256 '82670699f61ed625453859cc34a3474cf8bca5f0cbb5eeafd4be748c18410043'
+cask "unity-windows-support-for-editor" do
+  version "2021.1.23f1,b50729e604a9"
+  sha256 "f216d24ff0ac04ade5a171969182075257ac95123d69aa2eab0162959ae86a05"
 
-  url "https://netstorage.unity3d.com/unity/#{version.after_comma}/MacEditorTargetInstaller/UnitySetup-Windows-Mono-Support-for-Editor-#{version.before_comma}.pkg"
-  appcast 'https://public-cdn.cloud.unity3d.com/hub/prod/releases-darwin.json'
-  name 'Unity Windows (Mono) Build Support'
-  homepage 'https://unity3d.com/unity/'
+  url "https://download.unity3d.com/download_unity/#{version.after_comma}/MacEditorTargetInstaller/UnitySetup-Windows-Mono-Support-for-Editor-#{version.before_comma}.pkg",
+      verified: "download.unity3d.com/download_unity/"
+  name "Unity Windows (Mono) Build Support"
+  desc "Windows (Mono) target support for Unity"
+  homepage "https://unity.com/products"
 
-  depends_on cask: 'unity'
+  livecheck do
+    url "https://public-cdn.cloud.unity3d.com/hub/prod/releases-darwin.json"
+    strategy :page_match do |page|
+      page.scan(%r{
+        /download_unity/(\h+)/MacEditorTargetInstaller
+        /UnitySetup-Windows-Mono-Support-for-Editor-(\d+(?:\.\d+)*[a-z]*\d*)\.pkg
+      }ix).map do |match|
+        "#{match[1]},#{match[0]}"
+      end
+    end
+  end
+
+  depends_on cask: "unity"
 
   pkg "UnitySetup-Windows-Mono-Support-for-Editor-#{version.before_comma}.pkg"
 
-  uninstall pkgutil: 'com.unity3d.WindowsStandaloneSupport'
+  uninstall pkgutil: "com.unity3d.WindowsStandaloneSupport"
 end

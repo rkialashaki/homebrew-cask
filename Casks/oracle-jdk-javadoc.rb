@@ -1,19 +1,28 @@
-cask 'oracle-jdk-javadoc' do
-  version '14.0.1,7:664493ef4a6946b186ff29eb326336a2'
-  sha256 'ec3e41df14e63ee111a716126191464bc8791f98e50c3188e258aab3010fdc9d'
+cask "oracle-jdk-javadoc" do
+  version "17,35:0d483333a00540d886896bac774ff48b"
+  sha256 "0b6870176449abdedae5c4a98ad69684f68831d02900b9b6ccea54213ff2cca7"
 
   url "https://download.oracle.com/otn-pub/java/jdk/#{version.before_comma}+#{version.after_comma.before_colon}/#{version.after_colon}/jdk-#{version.before_comma}_doc-all.zip",
       cookies: {
-                 'oraclelicense' => 'accept-securebackup-cookie',
-               }
-  name 'Oracle Java Standard Edition Development Kit Documentation'
-  homepage 'https://www.oracle.com/technetwork/java/javase/documentation/index.html'
+        "oraclelicense" => "accept-securebackup-cookie",
+      }
+  name "Oracle Java Standard Edition Development Kit Documentation"
+  desc "Documentation for the Oracle JDK"
+  homepage "https://www.oracle.com/java/technologies/downloads/"
 
-  artifact 'docs', target: "/Library/Java/JavaVirtualMachines/jdk-#{version.before_comma}.jdk/Contents/Home/docs"
+  livecheck do
+    url "https://www.oracle.com/java/technologies/javase-jdk#{version.major}-doc-downloads.html"
+    strategy :page_match do |page|
+      match = page.match(%r{(\d+(?:\.\d+)*)\+(\d+(?:\.\d+)*)/(.+)/jdk-(\d+(?:\.\d+)*)_doc-all\.zip}i)
+      "#{match[1]},#{match[2]}:#{match[3]}"
+    end
+  end
+
+  artifact "docs", target: "/Library/Java/JavaVirtualMachines/jdk-#{version.before_comma}.jdk/Contents/Home/docs"
 
   uninstall rmdir: "/Library/Java/JavaVirtualMachines/jdk-#{version.before_comma}.jdk"
 
   caveats do
-    license 'https://www.oracle.com/technetwork/java/javase/terms/license/index.html'
+    license "https://download.oracle.com/otndocs/jcp/java_se-#{version.major}-final-spec/license.html"
   end
 end

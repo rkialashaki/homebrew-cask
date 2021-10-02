@@ -1,24 +1,29 @@
-cask 'skim' do
-  version '1.5.10'
-  sha256 'f575a90b71bcd181530d9895f4ead1a0995a21e4069723d71b231ba0f3be4cd7'
+cask "skim" do
+  version "1.6.5,135"
+  sha256 "f3994073504679cf6705435b9f8208092e1ae1b897c07ab462fb3d62a70fa5d7"
 
-  # downloads.sourceforge.net/skim-app/ was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/skim-app/Skim/Skim-#{version}/Skim-#{version}.dmg"
-  appcast 'https://skim-app.sourceforge.io/skim.xml'
-  name 'Skim'
-  homepage 'https://skim-app.sourceforge.io/'
+  url "https://downloads.sourceforge.net/skim-app/Skim/Skim-#{version.before_comma}/Skim-#{version.before_comma}.dmg",
+      verified: "downloads.sourceforge.net/skim-app/"
+  name "Skim"
+  desc "PDF reader and note-taking application"
+  homepage "https://skim-app.sourceforge.io/"
+
+  livecheck do
+    url "https://skim-app.sourceforge.io/skim.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'Skim.app'
+  app "Skim.app"
   binary "#{appdir}/Skim.app/Contents/SharedSupport/displayline"
   binary "#{appdir}/Skim.app/Contents/SharedSupport/skimnotes"
   binary "#{appdir}/Skim.app/Contents/SharedSupport/skimpdf"
 
   zap trash: [
-               '~/Library/Preferences/net.sourceforge.skim-app.skim.plist',
-               '~/Library/Preferences/net.sourceforge.skim-app.skim.bookmarks.plist',
-               '~/Library/Caches/net.sourceforge.skim-app.skim',
-               '~/Library/Cookies/net.sourceforge.skim-app.skim.binarycookies',
-             ]
+    "~/Library/Caches/net.sourceforge.skim-app.skim",
+    "~/Library/Cookies/net.sourceforge.skim-app.skim.binarycookies",
+    "~/Library/Preferences/net.sourceforge.skim-app.skim.bookmarks.plist",
+    "~/Library/Preferences/net.sourceforge.skim-app.skim.plist",
+  ]
 end

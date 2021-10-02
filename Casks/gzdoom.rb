@@ -1,12 +1,17 @@
-cask 'gzdoom' do
-  version '4.4.2'
-  sha256 '1de3ed755232e36cf85fccee8fb1f5236f1427713b1086d88f8162c68f2cabc4'
+cask "gzdoom" do
+  version "4.6.1"
+  sha256 "9191cb8c8868cc8bfac81f627d0c0ca87c166c995f9ad7dcff7ff69399c1650a"
 
-  # github.com/coelckers/gzdoom/ was verified as official when first introduced to the cask
-  url "https://github.com/coelckers/gzdoom/releases/download/g#{version}/gzdoom-#{version.dots_to_hyphens}-macOS.dmg"
-  appcast 'https://github.com/coelckers/gzdoom/releases.atom'
-  name 'gzdoom'
-  homepage 'https://zdoom.org/index'
+  url "https://github.com/coelckers/gzdoom/releases/download/g#{version}/gzdoom-#{version.dots_to_hyphens}-macOS.zip",
+      verified: "github.com/coelckers/gzdoom/"
+  name "GZDoom"
+  desc "Adds an OpenGL renderer to the ZDoom source port"
+  homepage "https://zdoom.org/index"
 
-  app 'GZDoom.app'
+  livecheck do
+    url :url
+    regex(/^g?(\d+(?:\.\d+)+)$/)
+  end
+
+  app "GZDoom.app"
 end

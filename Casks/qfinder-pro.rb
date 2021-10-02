@@ -1,20 +1,28 @@
-cask 'qfinder-pro' do
-  version '7.3.1.0604'
-  sha256 'c6714a5cc941b4b512fd0aa661ecea996e40f9ab825dfd67df8b5d7f38c52688'
+cask "qfinder-pro" do
+  version "7.5.1.0708"
+  sha256 "dd5ae56f770af2ad8fc164ff883ca4d752184ad8a6d59f8490e4fe123e1a20f2"
 
   url "https://download.qnap.com/Storage/Utility/QNAPQfinderProMac-#{version}.dmg"
-  appcast 'https://www.macupdater.net/cgi-bin/extract_text/extract_text_split_easy.cgi?url=https://update.qnap.com/SoftwareRelease.xml&splitter_1=Mac_for_QT&index_1=1&splitter_2=downloadURL&index_2=1'
-  name 'Qnap Qfinder Pro'
-  homepage 'https://www.qnap.com/en/utilities#utliity_5'
+  name "Qnap Qfinder Pro"
+  desc "NAS management application"
+  homepage "https://www.qnap.com/en/utilities#utliity_5"
 
-  pkg 'Qfinder Pro.pkg'
+  livecheck do
+    url "https://update.qnap.com/SoftwareRelease.xml"
+    regex(%r{/QNAPQfinderProMac-(\d+(?:\.\d+)*)\.dmg}i)
+  end
 
-  uninstall pkgutil: [
-                       'qnap.com.qfinder.*',
-                       'qnap.com.Qfinder',
-                     ],
-            delete:  [
-                       '/Applications/Qfinder Pro.app',
-                       '/Applications/Qfinder Pro.app/Contents/Resources/Qfinder Pro.app',
-                     ]
+  pkg "Qfinder Pro.pkg"
+
+  uninstall pkgutil: "qnap.com.Qfinder"
+
+  zap trash: [
+    "~/Library/Application Support/QNAP/QfinderPro",
+    "~/Library/Preferences/QNAP/Qfinder.plist",
+    "~/Library/Saved Application State/qnap.com.qfinder.savedState",
+  ],
+      rmdir: [
+        "~/Library/Application Support/QNAP",
+        "~/Library/Preferences/QNAP",
+      ]
 end

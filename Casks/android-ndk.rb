@@ -1,32 +1,38 @@
-cask 'android-ndk' do
-  version '21'
-  sha256 'b82a49ec591d6f283acc7a241a8c56a14788320bf85a3375b5f2309b3b0c9b45'
+cask "android-ndk" do
+  version "22b"
+  sha256 "b05d2087a6346d66cd26a1dc89fcc877b59e49feab6269b665aa67c784a81512"
 
-  # dl.google.com/android/repository/ was verified as official when first introduced to the cask
-  url "https://dl.google.com/android/repository/android-ndk-r#{version}-darwin-x86_64.zip"
-  name 'Android NDK'
-  homepage 'https://developer.android.com/ndk/index.html'
+  url "https://dl.google.com/android/repository/android-ndk-r#{version}-darwin-x86_64.zip",
+      verified: "dl.google.com/android/repository/"
+  name "Android NDK"
+  desc "Toolset to implement parts of Android apps in native code"
+  homepage "https://developer.android.com/ndk/index.html"
 
-  conflicts_with cask: 'crystax-ndk'
+  livecheck do
+    url "https://developer.android.com/ndk/downloads"
+    regex(/Latest\s+Stable\s+Version\s+\(r(\d+[a-z]?)\)/i)
+  end
+
+  conflicts_with cask: "crystax-ndk"
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/ndk_exec.sh"
   preflight do
     FileUtils.ln_sf("#{staged_path}/android-ndk-r#{version}", "#{HOMEBREW_PREFIX}/share/android-ndk")
 
-    IO.write shimscript, <<~EOS
+    File.write shimscript, <<~EOS
       #!/bin/bash
       readonly executable="#{staged_path}/android-ndk-r#{version}/$(basename ${0})"
       test -f "${executable}" && exec "${executable}" "${@}"
     EOS
   end
 
-  [
-    'ndk-build',
-    'ndk-depends',
-    'ndk-gdb',
-    'ndk-stack',
-    'ndk-which',
+  %w[
+    ndk-build
+    ndk-depends
+    ndk-gdb
+    ndk-stack
+    ndk-which
   ].each { |link_name| binary shimscript, target: link_name }
 
   uninstall_postflight do

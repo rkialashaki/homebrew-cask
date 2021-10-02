@@ -1,11 +1,17 @@
-cask 'molotov' do
-  version '4.2.1'
-  sha256 'd03d7390c59cc735e5a6c5ff443b661ffa07f9b409d7d1f02a1b69c85c4e5768'
+cask "molotov" do
+  version "4.4.6"
+  sha256 "8d133568386e88fbf90f85e827ccb809d79cfd068a9ed5b3dee3fd29450a54b4"
 
-  url "https://desktop-auto-upgrade.molotov.tv/mac/Molotov-v#{version}.dmg"
-  appcast 'https://desktop-auto-upgrade.molotov.tv/mac/manifest.json'
-  name 'Molotov'
-  homepage 'https://www.molotov.tv/'
+  url "https://desktop-auto-upgrade.molotov.tv/mac/Molotov-#{version}-mac.zip"
+  name "Molotov"
+  desc "French TV streaming service"
+  homepage "https://www.molotov.tv/"
 
-  app 'Molotov.app'
+  livecheck do
+    url "https://desktop-auto-upgrade.molotov.tv/mac/manifest.json"
+    strategy :page_match
+    regex(%r{/Molotov-v?(\d+(?:\.\d+)*)-mac\.zip}i)
+  end
+
+  app "Molotov.app"
 end

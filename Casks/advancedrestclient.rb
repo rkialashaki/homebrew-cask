@@ -1,16 +1,21 @@
-cask 'advancedrestclient' do
-  version '15.0.5'
-  sha256 '61a26bd6cbdc213b5b54a92566dae9c386fa1ff8ed91b21dcdb407f447910127'
+cask "advancedrestclient" do
+  version "16.0.1"
+  sha256 "fa60bb7e382adb474d6f85afbebcb596875ad5e23061052f4b8a094fdfa0b967"
 
-  url "https://github.com/advanced-rest-client/arc-electron/releases/download/v#{version}/arc-#{version}.dmg"
-  appcast 'https://github.com/advanced-rest-client/arc-electron/releases.atom'
-  name 'Advanced Rest Client'
-  homepage 'https://github.com/advanced-rest-client/arc-electron'
+  url "https://github.com/advanced-rest-client/arc-electron/releases/download/v#{version}/arc-macos.dmg"
+  name "Advanced REST Client"
+  desc "API testing tool"
+  homepage "https://github.com/advanced-rest-client/arc-electron"
 
-  app 'AdvancedRestClient.app'
+  livecheck do
+    url :url
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
+  app "AdvancedRestClient.app"
 
   zap trash: [
-               '~/Library/Application Support/advanced-rest-client',
-               '~/Library/Logs/AdvancedRestClient',
-             ]
+    "~/Library/Application Support/advanced-rest-client",
+    "~/Library/Logs/AdvancedRestClient",
+  ]
 end

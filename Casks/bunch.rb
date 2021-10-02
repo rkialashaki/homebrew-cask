@@ -1,15 +1,22 @@
-cask 'bunch' do
-  version '1.2.4,44'
-  sha256 '0d78878d90c55be7cd56e2572c5c97ad8204d116cbe4f1f568465d1a0e85b925'
+cask "bunch" do
+  version "1.4.5,124"
+  sha256 "c5c646fd7f676691b776a370391fa548ea9757cb8c45b89e68ad72fcdc0f5875"
 
-  url "https://cdn3.brettterpstra.com/updates/bunch/Bunch#{version.before_comma}#{version.after_comma}.dmg"
-  appcast 'https://brettterpstra.com/updates/bunch/appcast.xml'
-  name 'Bunch'
-  homepage 'https://brettterpstra.com/projects/bunch/'
+  url "https://brettterpstra.com/updates/bunch/Bunch#{version.before_comma}#{version.after_comma}.dmg",
+      verified: "brettterpstra.com/updates/bunch/"
+  name "Bunch"
+  desc "Automation tool"
+  homepage "https://bunchapp.co/"
+
+  livecheck do
+    url "https://brettterpstra.com/updates/bunch/appcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
+  depends_on macos: ">= :sierra"
 
-  app 'Bunch.app'
+  app "Bunch.app"
 
-  zap trash: '~/Library/Preferences/com.brettterpstra.Bunch.plist'
+  zap trash: "~/Library/Preferences/com.brettterpstra.Bunch.plist"
 end

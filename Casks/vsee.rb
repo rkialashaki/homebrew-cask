@@ -1,21 +1,28 @@
-cask 'vsee' do
-  version '4.8.1,41094'
-  sha256 '7ea0fd8a7f874052637ed9db15ecc9095872e6f228e894dfa4f7f984521f76ee'
+cask "vsee" do
+  version "4.11.3,43458"
+  sha256 "f1c001959126c114b535e2e98d6f5e7f75cf328e2e2fa8cda1c4535a7f0e6030"
 
-  # d2q5hugz2rti4w.cloudfront.net/ was verified as official when first introduced to the cask
-  url "https://d2q5hugz2rti4w.cloudfront.net/mac/#{version.after_comma}/vseemac.dmg"
-  appcast 'https://client.vsee.com/mac/appcast.xml'
-  name 'VSee'
-  homepage 'https://vsee.com/'
+  url "https://d2q5hugz2rti4w.cloudfront.net/mac/#{version.after_comma}/vseemac.dmg",
+      verified: "d2q5hugz2rti4w.cloudfront.net/"
+  name "VSee"
+  desc "Group video calls, screen sharing and instant messaging"
+  homepage "https://vsee.com/"
 
-  app 'VSee.app'
+  livecheck do
+    url "https://client.vsee.com/mac/appcast.xml"
+    strategy :sparkle
+  end
 
-  uninstall delete: '~/Library/Internet Plug-Ins/VSeeHelper.plugin'
+  depends_on macos: ">= :el_capitan"
+
+  app "VSee.app"
+
+  uninstall delete: "~/Library/Internet Plug-Ins/VSeeHelper.plugin"
 
   zap trash: [
-               '~/Library/Preferences/com.vsee.VSee.plist',
-               '~/Library/Application Support/VSee',
-               '~/Library/Caches/com.vsee.VSee',
-               '~/Library/Logs/VSee',
-             ]
+    "~/Library/Application Support/VSee",
+    "~/Library/Caches/com.vsee.VSee",
+    "~/Library/Logs/VSee",
+    "~/Library/Preferences/com.vsee.VSee.plist",
+  ]
 end

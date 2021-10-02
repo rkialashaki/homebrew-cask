@@ -1,18 +1,23 @@
-cask 'balsamiq-wireframes' do
-  version '4.0.30'
-  sha256 'f5818ffb00deeb64d9c4346332d494211d08434e4916bd59b2cec3e99cc56c84'
+cask "balsamiq-wireframes" do
+  version "4.3.1"
+  sha256 "8bba43203e83e08cc2969d7db29aa216dd437b78aba782d5210be7aed91d38d6"
 
   url "https://builds.balsamiq.com/bwd/Balsamiq%20Wireframes%20#{version}.dmg"
-  appcast 'https://builds.balsamiq.com/bwd/mac.jsonp'
-  name 'Balsamiq Wireframes'
-  homepage 'https://balsamiq.com/'
+  name "Balsamiq Wireframes"
+  desc "UI wireframing tool"
+  homepage "https://balsamiq.com/"
 
-  app 'Balsamiq Wireframes.app'
+  livecheck do
+    url "https://builds.balsamiq.com/bwd/mac.jsonp"
+    regex(/"version"\s*:\s*"(\d+(?:\.\d+)+)"/i)
+  end
+
+  app "Balsamiq Wireframes.app"
 
   zap trash: [
-               "~/Library/Caches/BalsamiqMockups#{version.major}.*",
-               "~/Library/Preferences/BalsamiqMockups#{version.major}",
-               "~/Library/Preferences/BalsamiqMockups#{version.major}.*",
-               "~/Library/Saved Application State/BalsamiqMockups#{version.major}.*",
-             ]
+    "~/Library/Caches/BalsamiqMockups#{version.major}.*",
+    "~/Library/Preferences/BalsamiqMockups#{version.major}",
+    "~/Library/Preferences/BalsamiqMockups#{version.major}.*",
+    "~/Library/Saved Application State/BalsamiqMockups#{version.major}.*",
+  ]
 end

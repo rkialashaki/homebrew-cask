@@ -1,16 +1,21 @@
-cask 'yam-display' do
-  version '1.8.4'
-  sha256 'b3ba345681f9f6bf7ab153ff2eafc9a3578f9d3b31060bdbcb921e6c2c7c492a'
+cask "yam-display" do
+  version "2.2.8"
+  sha256 "38c605dfb130b63a1b89229dc8e022c3f9eba689a3a19ee184df511c9d261153"
 
   url "https://www.yamdisplay.com/app/YamDisplay#{version}.zip"
-  appcast 'https://www.yamdisplay.com/app/appcast.xml'
-  name 'Yam Display'
-  homepage 'https://www.yamdisplay.com/'
+  name "Yam Display"
+  desc "Yet another monitor"
+  homepage "https://www.yamdisplay.com/"
 
-  app 'Yam Display.app'
+  livecheck do
+    url "https://www.yamdisplay.com/app/appcast.xml"
+    strategy :sparkle
+  end
+
+  app "Yam Display.app"
 
   zap trash: [
-               '~/Library/Caches/com.yamstu.yamdisplaymac',
-               '~/Library/Preferences/com.yamstu.yamdisplaymac.plist',
-             ]
+    "~/Library/Caches/com.yamstu.yamdisplaymac",
+    "~/Library/Preferences/com.yamstu.yamdisplaymac.plist",
+  ]
 end

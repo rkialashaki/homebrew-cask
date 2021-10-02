@@ -1,17 +1,23 @@
-cask 'splashtop-business' do
-  version '3.3.8.0'
-  sha256 '7b3d1256f08fd722e233531744f0d340694d7d68177609a5a9b2bf2d474720fc'
+cask "splashtop-business" do
+  version "3.4.8.0"
+  sha256 "cc2117328cfe2e9fae978b778bc54d994842a3ccd0962991af255bb397f2bfd3"
 
-  # d17kmd0va0f0mp.cloudfront.net/macclient/STB/ was verified as official when first introduced to the cask
-  url "https://d17kmd0va0f0mp.cloudfront.net/macclient/STB/Splashtop_Business_Mac_INSTALLER_v#{version}.dmg"
-  appcast 'https://www.splashtop.com/wp-content/themes/responsive/downloadx.php?product=stb&platform=mac-client'
-  name 'Splashtop Business'
-  homepage 'https://www.splashtop.com/business'
+  url "https://d17kmd0va0f0mp.cloudfront.net/macclient/STB/Splashtop_Business_Mac_INSTALLER_v#{version}.dmg",
+      verified: "d17kmd0va0f0mp.cloudfront.net/macclient/STB/"
+  name "Splashtop Business"
+  desc "Remote access software"
+  homepage "https://www.splashtop.com/business"
 
-  pkg 'Splashtop Business.pkg'
+  livecheck do
+    url "https://www.splashtop.com/wp-content/themes/responsive/downloadx.php?product=stb&platform=mac-client"
+    regex(/Splashtop_Business_Mac_INSTALLER[._-]v?(\d+(?:\.\d+)+)\.dmg/i)
+  end
 
-  uninstall pkgutil: [
-                       'com.splashtop.stb.*',
-                       'com.splashtop.splashtopBusiness.*',
-                     ]
+  pkg "Splashtop Business.pkg"
+
+  uninstall quit:    "com.splashtop.stb.macosx",
+            pkgutil: [
+              "com.splashtop.stb.*",
+              "com.splashtop.splashtopBusiness.*",
+            ]
 end

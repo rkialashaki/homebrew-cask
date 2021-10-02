@@ -1,12 +1,37 @@
-cask 'tandem' do
-  version '1.5.13'
-  sha256 '05c1ca19b263dbcd8251f6f4eae77a5ef637d9b188bfd1c97cf3a2ef7bdf14ba'
+cask "tandem" do
+  version "1.8.818"
 
-  # wisp-app.s3-accelerate.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://wisp-app.s3-accelerate.amazonaws.com/Tandem-#{version}-mac.zip"
-  appcast 'https://wisp-app.s3-accelerate.amazonaws.com/latest-mac.yml'
-  name 'Tandem'
-  homepage 'https://tandem.chat/'
+  if Hardware::CPU.intel?
+    sha256 "228971e3798e3e658c05fbd04e01991e1f452087c9f22ecea708446f6592cbf0"
+    url "https://download.todesktop.com/200527auaqaacsy/Tandem%20#{version}-x64.dmg",
+        verified: "download.todesktop.com/200527auaqaacsy/"
+  else
+    sha256 "5a08640944af10a4191f6649604cfae6beb942e0b0a7a75ddc401ba0ec09327d"
+    url "https://download.todesktop.com/200527auaqaacsy/Tandem%20#{version}-arm64.dmg",
+        verified: "download.todesktop.com/200527auaqaacsy/"
+  end
 
-  app 'Tandem.app'
+  name "Tandem"
+  desc "Virtual office for remote teams"
+  homepage "https://tandem.chat/"
+
+  livecheck do
+    url "https://download.todesktop.com/200527auaqaacsy/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  auto_updates true
+
+  app "Tandem.app"
+
+  zap trash: [
+    "~/Library/Application Support/Caches/tandem-updater",
+    "~/Library/Application Support/Tandem",
+    "~/Library/Caches/tandem.app",
+    "~/Library/Caches/tandem.app.ShipIt",
+    "~/Library/Logs/Tandem",
+    "~/Library/Preferences/ByHost/tandem.app.ShipIt.*.plist",
+    "~/Library/Preferences/tandem.app.plist",
+    "~/Library/Saved Application State/tandem.app.savedState",
+  ]
 end
