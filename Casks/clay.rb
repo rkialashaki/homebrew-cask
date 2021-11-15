@@ -1,14 +1,15 @@
 cask "clay" do
-  version "1.6.1"
+  arch = Hardware::CPU.intel? ? "" : "-arm64"
+
+  version "1.6.5"
 
   if Hardware::CPU.intel?
-    sha256 "c62ad6a7ae16c3b4ac6462fa3f4c022c036423f2d027eab429bab133ad56761c"
-    url "https://assets.clay.earth/desktop/mac/Clay-#{version}.dmg"
+    sha256 "be50e8e9871eed9a8c91eacae504b31e85751b27559e7099454f4fa09c03f0a1"
   else
-    sha256 "732bd70180ddb0b623827030aea7385fc9b9efba4a506827e92dc5f2cb004a82"
-    url "https://assets.clay.earth/desktop/mac/Clay-#{version}-arm64.dmg"
+    sha256 "6142ab460eddbd299840773868b5c3f098d90e68eaa2ec6d5a0ff0a8a424e79d"
   end
 
+  url "https://assets.clay.earth/desktop/mac/Clay-#{version}#{arch}.dmg"
   name "clay"
   desc "Private rolodex to remember people better"
   homepage "https://clay.earth/"
@@ -17,6 +18,8 @@ cask "clay" do
     url "https://assets.clay.earth/desktop/mac/latest-mac.yml"
     strategy :electron_builder
   end
+
+  auto_updates true
 
   app "Clay.app"
 

@@ -1,6 +1,6 @@
 cask "spatterlight" do
-  version "0.8.7"
-  sha256 "e3a51b85bcda00b4a20064adf7edbe9ec33ca79ca963a81d4ecfa7ca00d6c0d8"
+  version "0.8.9"
+  sha256 "dd4878b9207b6e45d80796f130d0862387347c0730ce85ef6e6644b54dff33ca"
 
   url "https://github.com/angstsmurf/spatterlight/releases/download/v#{version}/Spatterlight.zip",
       verified: "github.com/angstsmurf/spatterlight/"

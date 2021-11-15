@@ -1,6 +1,6 @@
 cask "jupyterlab" do
-  version "3.1.13-1"
-  sha256 "bce13d3022217a72f874a8b654834aaf3f5df4d820fecd40ca113c1a67499ea1"
+  version "3.2.1-2"
+  sha256 "e010f1661242efb8bdb4ec0f8cd5149caeee1cd99faf0091a4b15692f6561b5c"
 
   url "https://github.com/jupyterlab/jupyterlab_app/releases/download/v#{version}/JupyterLab-Setup-macOS.pkg"
   name "JupyterLab App"
@@ -11,6 +11,7 @@ cask "jupyterlab" do
 
   uninstall pkgutil: [
     "com.electron.jupyterlabapp",
+    "com.electron.jupyterlab-desktop",
   ],
             delete:  [
               "/Applications/JupyterLab.app",

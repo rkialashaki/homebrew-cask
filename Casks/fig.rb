@@ -1,8 +1,8 @@
 cask "fig" do
-  version "1.0.49,270"
-  sha256 "2209f614d7d09081755a9906539712aed0f23bc395fe1b1e508b506806faaaf4"
+  version "1.0.52,307"
+  sha256 "b002dae7e82d71e5c1d953e3dc63dec312a5bc2f87140c00ab3f22f4e70d16df"
 
-  url "https://versions.withfig.com/fig%20#{version.before_comma}.dmg",
+  url "https://versions.withfig.com/fig%20#{version.after_comma}.dmg",
       verified: "versions.withfig.com/"
   name "fig"
   desc "Reimagine your terminal"
@@ -13,15 +13,20 @@ cask "fig" do
     strategy :sparkle
   end
 
+  auto_updates true
   depends_on macos: ">= :high_sierra"
 
   app "Fig.app"
 
-  uninstall script: "#{appdir}/Fig.app/Contents/Resources/uninstall.sh"
+  uninstall script: "#{appdir}/Fig.app/Contents/Resources/config/tools/uninstall-script.sh"
 
   zap trash: [
+    "~/.fig",
+    "~/.fig.dotfiles.bak",
     "~/Library/Application Support/com.mschrage.fig",
     "~/Library/Caches/com.mschrage.fig",
-    "~/Library/Preferences/com.mschrage.fig.plist",
+    "~/Library/Caches/fig",
+    "~/Library/Preferences/com.mschrage.fig.*",
+    "~/Library/WebKit/com.mschrage.fig",
   ]
 end

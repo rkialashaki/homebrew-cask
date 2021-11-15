@@ -1,6 +1,6 @@
 cask "whalebird" do
-  version "4.4.4"
-  sha256 "6d8be97a1234f5c5a63dcb08b7c9c99ed1e5b2cc87c5911702767cdc681aa9a9"
+  version "4.4.6"
+  sha256 "a918ddbf40a1d675bd1583346618cb1e2d8050a18e3fba16fc03500102b89c04"
 
   url "https://github.com/h3poteto/whalebird-desktop/releases/download/#{version}/Whalebird-#{version}-darwin-universal.dmg",
       verified: "github.com/h3poteto/whalebird-desktop/"

@@ -1,6 +1,6 @@
 cask "audacity" do
-  version "3.0.5"
-  sha256 "61b2c8d43b1fe10fa4ed383a6b5dc5553b57b38a13745d4f4983beffb2bb7890"
+  version "3.1.1"
+  sha256 "84b0e9590bf0b418d1722aa04a933658840c0945e9c4e52daacb9c2e36ab80a6"
 
   url "https://github.com/audacity/audacity/releases/download/Audacity-#{version}/audacity-macos-#{version}-Intel.dmg",
       verified: "github.com/audacity/audacity/"
